@@ -3,10 +3,10 @@
 readonly class Record
 {
     public int $id;
-    public string $albumName;
-    public string $artistName;
-    public int $genreID;
-    public int $releaseYear;
+    public string $album_name;
+    public string $artist_name;
+    public int $genre_id;
+    public int $release_year;
     public int $score;
     public string $img;
     public int $deleted;
@@ -22,10 +22,10 @@ readonly class Record
         int $deleted
     ){
         $this->id = $id;
-        $this->albumName = $albumName;
-        $this->artistName = $artistName;
-        $this->genreID = $genreID;
-        $this->releaseYear = $releaseYear;
+        $this->album_name = $albumName;
+        $this->artist_name = $artistName;
+        $this->genre_id = $genreID;
+        $this->release_year = $releaseYear;
         $this->score = $score;
         $this->img = $img;
         $this->deleted = $deleted;
