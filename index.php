@@ -62,20 +62,20 @@ $allRecords = $recordModel->getAllRecords();
             $genreInfo = $recordModel->getGenreByID($record->genre_id);
             $genreName = $genreInfo['name'];
 
-            echo 
+            echo
             "<div class='albumContainer'>
             <img src='$record->img' alt='$record->album_name' width='300' height='300' >
             <div class='albumStats'>
-            <p class='smallCopy'>Album: $record->album_name</p>
-            <p class='smallCopy'>Artist: $record->artist_name</p>
-            <p class='smallCopy'Year of realse: $record->release_year</p>
-            <p class='smallCopy'>Genre: $genreName</p>
-            <p class='smallCopy'>Score: $record->score/10</p>
+            <p class='smallCopy'><strong>Album:</strong> $record->album_name</p>
+            <p class='smallCopy'><strong>Artist:</strong> $record->artist_name</p>
+            <p class='smallCopy'><strong>Year of realse:</strong> $record->release_year</p>
+            <p class='smallCopy'><strong>Genre:</strong> $genreName</p>
+            <p class='smallCopy'><strong>Score:</strong> $record->score/10</p>
             </div>
             </div>";
         }
         ?>
-        </div>
+    </div>
     </div>
     <!-- record display -->
 </body>
