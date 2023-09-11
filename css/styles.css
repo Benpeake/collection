@@ -66,6 +66,7 @@ body{
 .albumContainer{
   background-color: var(--off-white);
   padding: 20px;
+  border-radius: 10px;
 }
 
 p, .albumContainer {

@@ -15,22 +15,26 @@ $recordModel = new RecordsModel($db);
 $allRecords = $recordModel->getAllRecords();
 
 //display records function
-function displayAllRecords(array $records)
+function displayAllRecords(array $records):string
 {
+    $htmlDisplay = '';
+
     foreach ($records as $record) {
-        echo
-        "<div class='albumContainer'>
+        $htmlDisplay .= "<div class='albumContainer'>
             <img src='$record->img' alt='$record->album_name' width='300' height='300' >
             <div class='albumStats'>
                 <p class='smallCopy'><strong>Album:</strong> $record->album_name</p>
                 <p class='smallCopy'><strong>Artist:</strong> $record->artist_name</p>
-                <p class='smallCopy'><strong>Year of realse:</strong> $record->release_year</p>
+                <p class='smallCopy'><strong>Year of release:</strong> $record->release_year</p>
                 <p class='smallCopy'><strong>Genre:</strong> $record->genre_name</p>
                 <p class='smallCopy'><strong>Score:</strong> $record->score/10</p>
             </div>
         </div>";
     }
+
+    return $htmlDisplay;
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -75,7 +79,7 @@ function displayAllRecords(array $records)
     <!-- record display -->
     <div class='flexConatiner'>
         <?php
-        displayAllRecords($allRecords)
+        echo displayAllRecords($allRecords)
         ?>
     </div>
     <!-- record display -->

@@ -22,7 +22,7 @@ readonly class Record
         string $img,
         int $deleted,
         string $genreName
-    ){
+    ) {
         $this->id = $id;
         $this->album_name = $albumName;
         $this->artist_name = $artistName;
@@ -32,6 +32,4 @@ readonly class Record
         $this->deleted = $deleted;
         $this->genre_name = $genreName;
     }
-
-
 }
