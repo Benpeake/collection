@@ -3,3 +3,28 @@
 *::after {
   box-sizing: border-box;
 }
+
+:root{
+  --white: #F9F9F9;
+  --off-white: #EBEBEB;
+  --black: #110B11;
+  --red: #EE5622;
+  --green: #636940 ;
+}
+
+body{
+  font-family: 'Proza Libre', sans-serif;
+  background-color: var(--white);
+}
+
+.largeCopy{
+  font-size: 2.6rem
+}
+
+.mediumCopy{
+  font-size: 1.6rem;
+}
+
+.smallCopy{
+  font-size: 0.9rem;
+}
