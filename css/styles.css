@@ -7,7 +7,7 @@
 :root{
   --white: #F9F9F9;
   --off-white: #EBEBEB;
-  --black: #110B11;
+  --off-black: #1F1F1F;
   --red: #EE5622;
   --green: #636940 ;
 }
@@ -15,6 +15,7 @@
 body{
   font-family: 'Proza Libre', sans-serif;
   background-color: var(--white);
+  color: var(--black);
 }
 
 .largeCopy{
@@ -27,4 +28,27 @@ body{
 
 .smallCopy{
   font-size: 0.9rem;
+}
+
+.navLink{
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.navLink:hover{
+  cursor: pointer;
+  color: var(--off-black);
+}
+
+.navBar{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 20px;
+  border-bottom: 2px solid #110B11;
+}
+
+.rightNav{
+  display: flex;
+  gap: 20px;
 }

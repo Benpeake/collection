@@ -31,6 +31,17 @@
 </head>
 
 <body>
+    <!-- nav-bar -->
+    <div class='navBar'>
+        <div class='leftNav'>
+            <a class='navLink'>MyRecords</a>
+        </div>
+        <div class='rightNav'>
+            <a class='navLink'>+ Record</a>
+            <a class='navLink'>Archive</a>
+        </div>
+    </div>
+     <!-- nav-bar -->
 
 <h1>Website Template</h1>
 
