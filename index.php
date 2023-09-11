@@ -20,15 +20,15 @@ function displayAllRecords(array $records)
     foreach ($records as $record) {
         echo
         "<div class='albumContainer'>
-    <img src='$record->img' alt='$record->album_name' width='300' height='300' >
-    <div class='albumStats'>
-    <p class='smallCopy'><strong>Album:</strong> $record->album_name</p>
-    <p class='smallCopy'><strong>Artist:</strong> $record->artist_name</p>
-    <p class='smallCopy'><strong>Year of realse:</strong> $record->release_year</p>
-    <p class='smallCopy'><strong>Genre:</strong> $record->genre_name</p>
-    <p class='smallCopy'><strong>Score:</strong> $record->score/10</p>
-    </div>
-    </div>";
+            <img src='$record->img' alt='$record->album_name' width='300' height='300' >
+            <div class='albumStats'>
+                <p class='smallCopy'><strong>Album:</strong> $record->album_name</p>
+                <p class='smallCopy'><strong>Artist:</strong> $record->artist_name</p>
+                <p class='smallCopy'><strong>Year of realse:</strong> $record->release_year</p>
+                <p class='smallCopy'><strong>Genre:</strong> $record->genre_name</p>
+                <p class='smallCopy'><strong>Score:</strong> $record->score/10</p>
+            </div>
+        </div>";
     }
 }
 ?>
@@ -71,13 +71,15 @@ function displayAllRecords(array $records)
         </div>
     </div>
     <!-- nav-bar -->
+
     <!-- record display -->
     <div class='flexConatiner'>
         <?php
-            displayAllRecords($allRecords)
+        displayAllRecords($allRecords)
         ?>
     </div>
     <!-- record display -->
+    
 </body>
 
 </html>

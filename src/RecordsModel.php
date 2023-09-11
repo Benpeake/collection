@@ -18,7 +18,15 @@ class RecordsModel
 
     {
         $query = $this->db->prepare(
-            "SELECT `records`.`id`, `records`.`album_name`, `records`.`artist_name`, `records`.`release_year`, `records`.`score`, `records`.`img`, `records`.`deleted`, `genre`.`name` AS `genre_name`
+            "SELECT
+            `records`.`id`,
+            `records`.`album_name`,
+            `records`.`artist_name`,
+            `records`.`release_year`,
+            `records`.`score`,
+            `records`.`img`,
+            `records`.`deleted`,
+            `genre`.`name` AS `genre_name`
             FROM `records`
             INNER JOIN `genre`
             ON `records`.`genre_id` = `genre`.`id`
@@ -48,5 +56,4 @@ class RecordsModel
 
         return $allRecords;
     }
-
 }
