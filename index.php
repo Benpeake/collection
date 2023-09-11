@@ -1,12 +1,18 @@
 <?php
 
+use Collection\RecordsModel;
+
 require_once 'vendor/autoload.php';
 
 //connect and format db
 $db = new PDO('mysql:host=db; dbname=collection', 'root', 'password');
 $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
+//create record model
+$recordModel = new RecordsModel($db);
 
+// get all products
+$allRecords = $recordModel->getAllRecords();
 ?>
 
 
@@ -48,12 +54,11 @@ $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         </div>
     </div>
     <!-- nav-bar -->
+    <!-- record display -->
     <div class='flexConatiner'>
 
     </div>
-
-    <h1>Website Template</h1>
-
+     <!-- record display -->
 </body>
 
 </html>

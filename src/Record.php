@@ -1,5 +1,7 @@
 <?php
 
+namespace Collection;
+
 readonly class Record
 {
     public int $id;

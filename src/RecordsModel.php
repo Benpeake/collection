@@ -1,5 +1,8 @@
 <?php
 
+namespace Collection;
+use PDO;
+
 class RecordsModel
 {
     private PDO $db;
@@ -10,7 +13,7 @@ class RecordsModel
     }
 
     //select all record
-    public function getAllRecords()
+    public function getAllRecords(): array
     {
         $query = $this->db->prepare("SELECT * FROM `records` WHERE `deleted` = 0");
 
