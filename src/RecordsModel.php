@@ -17,7 +17,14 @@ class RecordsModel
     public function getAllRecords(): array
 
     {
-        $query = $this->db->prepare("SELECT * FROM `records` WHERE `deleted` = 0");
+        $query = $this->db->prepare(
+            "SELECT `records`.`id`, `records`.`album_name`, `records`.`artist_name`, `records`.`release_year`, `records`.`score`, `records`.`img`, `records`.`deleted`, `genre`.`name` AS `genre_name`
+            FROM `records`
+            INNER JOIN `genre`
+            ON `records`.`genre_id` = `genre`.`id`
+            where `records`.`deleted` = 0 
+        "
+        );
 
         $query->execute();
 
@@ -31,39 +38,15 @@ class RecordsModel
                 $recordData['id'],
                 $recordData['album_name'],
                 $recordData['artist_name'],
-                $recordData['genre_id'],
                 $recordData['release_year'],
                 $recordData['score'],
                 $recordData['img'],
-                $recordData['deleted']
+                $recordData['deleted'],
+                $recordData['genre_name'],
             );
         }
 
         return $allRecords;
     }
 
-    //Get genre by ID
-    public function getGenreByID(int $genreID)
-    {
-        $query = $this->db->prepare(
-            "SELECT `genre`.`name`
-            FROM `records`
-            INNER JOIN `genre`
-            ON `records`.`genre_id` = `genre`.`id`
-            WHERE `records`.`deleted` = 0 AND `genre`.`id`= :genreID
-        "
-        );
-
-        $query->bindParam('genreID', $genreID);
-
-        $query->execute();
-
-        $genre = $query->fetch();
-
-        if (!$genreID) {
-            return false;
-        }
-
-        return $genre;
-    }
 }

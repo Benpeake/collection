@@ -68,6 +68,7 @@ body{
   padding: 20px;
 }
 
-p {
+p, .albumContainer {
   margin: 5px;
+  margin-bottom: 0;
 }

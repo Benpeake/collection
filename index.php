@@ -13,8 +13,25 @@ $recordModel = new RecordsModel($db);
 
 // get all products
 $allRecords = $recordModel->getAllRecords();
-?>
 
+//display records function
+function displayAllRecords(array $records)
+{
+    foreach ($records as $record) {
+        echo
+        "<div class='albumContainer'>
+    <img src='$record->img' alt='$record->album_name' width='300' height='300' >
+    <div class='albumStats'>
+    <p class='smallCopy'><strong>Album:</strong> $record->album_name</p>
+    <p class='smallCopy'><strong>Artist:</strong> $record->artist_name</p>
+    <p class='smallCopy'><strong>Year of realse:</strong> $record->release_year</p>
+    <p class='smallCopy'><strong>Genre:</strong> $record->genre_name</p>
+    <p class='smallCopy'><strong>Score:</strong> $record->score/10</p>
+    </div>
+    </div>";
+    }
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -49,33 +66,16 @@ $allRecords = $recordModel->getAllRecords();
             <a class='navLink'>MyRecords</a>
         </div>
         <div class='rightNav'>
-            <a class='navLink'>+ Record</a>
-            <a class='navLink'>Archive</a>
+            <!-- <a class='navLink'>+ Record</a>
+            <a class='navLink'>Archive</a> -->
         </div>
     </div>
     <!-- nav-bar -->
     <!-- record display -->
     <div class='flexConatiner'>
         <?php
-        foreach ($allRecords as $record) {
-
-            $genreInfo = $recordModel->getGenreByID($record->genre_id);
-            $genreName = $genreInfo['name'];
-
-            echo
-            "<div class='albumContainer'>
-            <img src='$record->img' alt='$record->album_name' width='300' height='300' >
-            <div class='albumStats'>
-            <p class='smallCopy'><strong>Album:</strong> $record->album_name</p>
-            <p class='smallCopy'><strong>Artist:</strong> $record->artist_name</p>
-            <p class='smallCopy'><strong>Year of realse:</strong> $record->release_year</p>
-            <p class='smallCopy'><strong>Genre:</strong> $genreName</p>
-            <p class='smallCopy'><strong>Score:</strong> $record->score/10</p>
-            </div>
-            </div>";
-        }
+            displayAllRecords($allRecords)
         ?>
-    </div>
     </div>
     <!-- record display -->
 </body>
