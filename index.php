@@ -1,12 +1,13 @@
 <?php
 
-//php here
+require_once 'vendor/autoload.php';
 
 ?>
 
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -41,9 +42,13 @@
             <a class='navLink'>Archive</a>
         </div>
     </div>
-     <!-- nav-bar -->
+    <!-- nav-bar -->
+    <div class='flexConatiner'>
 
-<h1>Website Template</h1>
+    </div>
+
+    <h1>Website Template</h1>
 
 </body>
+
 </html>
