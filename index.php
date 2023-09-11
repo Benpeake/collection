@@ -17,10 +17,11 @@ $allRecords = $recordModel->getAllRecords();
 //display records function
 function displayAllRecords(array $records):string
 {
-    $htmlDisplay = '';
+    $htmlOutput = '';
 
     foreach ($records as $record) {
-        $htmlDisplay .= "<div class='albumContainer'>
+        $htmlOutput .=
+        "<div class='albumContainer'>
             <img src='$record->img' alt='$record->album_name' width='300' height='300' >
             <div class='albumStats'>
                 <p class='smallCopy'><strong>Album:</strong> $record->album_name</p>
@@ -32,7 +33,7 @@ function displayAllRecords(array $records):string
         </div>";
     }
 
-    return $htmlDisplay;
+    return $htmlOutput;
 }
 
 ?>
@@ -51,7 +52,6 @@ function displayAllRecords(array $records):string
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
     <link rel="stylesheet" href="css/styles.css">
-    <!-- font install -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Proza+Libre:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
