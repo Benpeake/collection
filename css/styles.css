@@ -6,7 +6,7 @@
 
 :root{
   --white: #F9F9F9;
-  --off-white: #EBEBEB;
+  --off-white: #D6D6D6;
   --off-black: #1F1F1F;
   --red: #EE5622;
   --green: #636940 ;
@@ -51,4 +51,15 @@ body{
 .rightNav{
   display: flex;
   gap: 20px;
+}
+
+.flexConatiner{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.albumContainer{
+  background-color: var(--off-white);
 }

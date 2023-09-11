@@ -56,9 +56,28 @@ $allRecords = $recordModel->getAllRecords();
     <!-- nav-bar -->
     <!-- record display -->
     <div class='flexConatiner'>
+        <?php
+        foreach ($allRecords as $record) {
 
+            $genreInfo = $recordModel->getGenreByID($record->genre_id);
+            $genreName = $genreInfo['name'];
+
+            echo 
+            "<div class='albumContainer'>
+            <img src='$record->img' alt='$record->album_name' width='300' height='300' >
+            <div class='albumStats'>
+            <p class='smallCopy'>Album: $record->album_name</p>
+            <p class='smallCopy'>Artist: $record->artist_name</p>
+            <p class='smallCopy'Year of realse: $record->release_year</p>
+            <p class='smallCopy'>Genre: $genreName</p>
+            <p class='smallCopy'>Score: $record->score/10</p>
+            </div>
+            </div>";
+        }
+        ?>
+        </div>
     </div>
-     <!-- record display -->
+    <!-- record display -->
 </body>
 
 </html>
