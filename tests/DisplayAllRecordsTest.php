@@ -36,7 +36,6 @@ class DisplayAllRecordsTest extends TestCase
 
         //comparing
         $this->assertStringContainsString($expected, $result);
-
     }
 
 }
