@@ -3,3 +3,125 @@
 *::after {
   box-sizing: border-box;
 }
+
+:root{
+  --white: #F1F2EB;
+  --off-white: #D8DAD3;
+  --off-black: #191308;
+  --red: #EE5622;
+  --green: #636940 ;
+}
+
+body{
+  font-family: 'Proza Libre', sans-serif;
+  background-color: var(--white);
+  color: var(--black);
+}
+
+.largeCopy{
+  font-size: 2.6rem
+}
+
+.mediumCopy{
+  font-size: 1.6rem;
+}
+
+.smallCopy{
+  font-size: 0.9rem;
+}
+
+.navLink{
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.navLink:hover{
+  cursor: pointer;
+  color: var(--off-black);
+}
+
+.navBar{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 20px;
+  border-bottom: 2px solid #191308;
+  position: sticky;
+  top: 0;
+  background-color: var(--white);
+}
+
+.rightNav{
+  display: flex;
+  gap: 20px;
+}
+
+.flexConatiner{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-content: flex-start;
+  gap: 50px;
+  padding: 50px;
+}
+
+.albumContainer{
+  background-color: var(--off-white);
+  padding: 20px;
+}
+
+p, .albumContainer {
+  margin: 5px;
+  margin-bottom: 0;
+}
+
+/* genre key style */
+
+.dot{
+  background-color: #191308;
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  margin-top: 2px;
+}
+
+.genre-input{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.Funk{
+  background: #2B9720;
+}
+
+.Hip-Hop{
+  background: #5603AD;
+}
+
+.Soul{
+  background: #FF7F11;
+}
+
+.Pop{
+  background: #F694C1;
+}
+
+.Rock{
+  background: #F13030;
+}
+
+.Metal{
+  background: #0E1428;
+}
+
+.Jazz{
+  background: #232ED1;
+}
+
+.Country{
+  background: #A57548;
+}
+
+/* genre key style */
