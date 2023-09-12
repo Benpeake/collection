@@ -8,7 +8,7 @@
   --white: #F1F2EB;
   --off-white: #D8DAD3;
   --black: #191308;
-  --red: #EE5622;
+  --red: #F15156;
   --green: #636940 ;
 }
 
@@ -32,6 +32,7 @@ body{
 
 .whiteCopy{
   color: var(--white);
+  padding-left: 20px;
 }
 
 .navLink{
@@ -131,18 +132,16 @@ p {
 /* add record form */
 .formContainer{
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: start;
   padding: 20px;
-  display: flex;
   justify-content: flex-start;
   background-color: var(--black);
 }
 
 .formContainerInfo{
   display: flex;
-  padding: 20px;
-  display: flex;
+  padding: 20px 0;
   justify-content: space-between;
   background-color: var(--black);
   font-size: 1.2rem;
@@ -179,8 +178,6 @@ input{
   padding: 5px 10px;
 }
 
-
-
 input:focus{
   outline: none;
 }
@@ -212,6 +209,16 @@ select{
 
 .errorMessagePlaceholder{
   color: var(--black);
+  font-weight: 400;
+  padding-left: 0;
+  margin-left: 0;
+}
+
+.errorMessage{
+  color: var(--red);
+  font-weight: 400;
+  padding-left: 0;
+  margin-left: 0;
 }
 
 /* Chrome, Safari, Edge, Opera */

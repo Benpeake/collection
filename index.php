@@ -45,6 +45,8 @@ $newScore = $_POST['newScore'] ?? false;
 $newImg = $_POST['newImg'] ?? false;
 
 $diplayFormErrors = false;
+$displayFormSucces = false;
+$formSuccess = 'record added to collection';
 
 //on submit...
 if (isset($_POST['newRecord'])) {
@@ -58,7 +60,7 @@ if (isset($_POST['newRecord'])) {
     if (empty($newArtistName)) {
         $errors['artistName'] = 'Artist name is required';
     }
-    if (empty($newReleaseYea) || !is_numeric($newReleaseYear) || strlen((string)$releaseYear) !== 4) {
+    if (empty($newReleaseYear) || !is_numeric($newReleaseYear) || strlen((string)$newReleaseYear) != 4) {
         $errors['releaseYear'] = 'Invalid release year';
     }
     if ($newGenre === 0 || empty($newGenre)) {
@@ -73,6 +75,7 @@ if (isset($_POST['newRecord'])) {
     // if no errors proceed... if errors display
     if (empty($errors)) {
         $recordModel->addRecord($newAlbumName, $newArtistName, $newReleaseYear, $newGenre, $newScore, $newImg);
+        $displayFormSucces = true;
     } else if (!empty($errors)) {
         $diplayFormErrors = true;
     }
@@ -111,7 +114,7 @@ if (isset($_POST['newRecord'])) {
             <a class='navLink'>MyRecords</a>
         </div>
         <div class='rightNav'>
-            <a class='navLink'>+ Record</a>
+            <!-- <a class='navLink'>+ Record</a> -->
             <!-- <a class='navLink'>Archive</a> -->
         </div>
     </div>
@@ -120,7 +123,7 @@ if (isset($_POST['newRecord'])) {
     <!-- add record form -->
     <div class='formContainerInfo'>
         <p class='whiteCopy'>Add record to collection</p>
-        <p><a class='whiteCopy'>X</a></p>
+        <!-- <p><a class='whiteCopy'>X</a></p> -->
     </div>
     <div class='formContainer'>
         <form class='newRecordForm' method='POST'>
@@ -212,8 +215,15 @@ if (isset($_POST['newRecord'])) {
                     ?>
                 </div>
             </div>
-            <div class='inputField'>
-                <input class='button' type='submit' value='Add record' name='newRecord' />
+            <div class='formContainerInfo'>
+                <div class='inputField'>
+                    <input class='button' type='submit' value='Add record' name='newRecord' />
+                    <?php
+                    // // if($displayFormSucces){
+                    //     echo "<p>$formSuccess</p>";
+                    // // }
+                    ?>
+                </div>
             </div>
         </form>
     </div>
