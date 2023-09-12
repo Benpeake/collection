@@ -65,13 +65,13 @@ class RecordsModel
         int $genreID,
         int $score,
         string $img,
-    )
-    {
+    ) {
         $query = $this->db->prepare(
-        "INSERT INTO `records`
+            "INSERT INTO `records`
         (`album_name`,`artist_name`, `release_year`, `genre_id`, `score`, `img`)
         VALUES (:albumName, :artistName, :releaseYear, :genreID, :score, :img);
-        ");
+        "
+        );
 
         $query->bindParam('albumName', $albumName);
         $query->bindParam('artistName', $artistName);
@@ -80,6 +80,9 @@ class RecordsModel
         $query->bindParam('score', $score);
         $query->bindParam('img', $img);
 
-        $query->execute();       
+        $query->execute();
+
     }
+    
+    
 }

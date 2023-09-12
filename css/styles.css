@@ -7,7 +7,7 @@
 :root{
   --white: #F1F2EB;
   --off-white: #D8DAD3;
-  --off-black: #191308;
+  --black: #191308;
   --red: #EE5622;
   --green: #636940 ;
 }
@@ -30,6 +30,10 @@ body{
   font-size: 0.9rem;
 }
 
+.whiteCopy{
+  color: var(--white);
+}
+
 .navLink{
   font-size: 1.6rem;
   font-weight: 600;
@@ -37,7 +41,7 @@ body{
 
 .navLink:hover{
   cursor: pointer;
-  color: var(--off-black);
+  color: var(--black);
 }
 
 .navBar{
@@ -126,28 +130,100 @@ p {
 
 /* add record form */
 .formContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
   padding: 20px;
   display: flex;
   justify-content: flex-start;
-  background-color: var(--off-black);
+  background-color: var(--black);
+}
+
+.formContainerInfo{
+  display: flex;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--black);
+  font-size: 1.2rem;
 }
 
 .newRecordForm{
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  gap: 0px 30px;
 }
 
 .inputField{
   color: var(--white);
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
 }
 
 .inputField{
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: start;
   gap: 5px;
+  outline: none;
 }
+
+
+input{
+  background-color: var(--black);
+  color: var(--white);
+  border: 2px solid var(--white);
+  padding: 5px 10px;
+}
+
+
+
+input:focus{
+  outline: none;
+}
+
+select{
+  background-color: var(--black);
+  color: var(--white);
+  border: 2px solid var(--white);
+  width: 271px;
+  height: 36.5px;
+  padding: 5px 10px;
+
+}
+
+.button{
+  border: 2px solid var(--white);
+  background: var(--black);
+  color: var(--white);
+  padding: 5px 10px;
+  border-radius: 10px;
+  font-size: 1.2rem;
+}
+
+.button:hover{
+  border: 2px solid var(--off-white);
+  color: var(--off-white);
+  cursor: pointer;
+}
+
+.errorMessagePlaceholder{
+  color: var(--black);
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 /* add record form */

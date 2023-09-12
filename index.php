@@ -44,11 +44,39 @@ $newGenre = $_POST['newGenre'] ?? false;
 $newScore = $_POST['newScore'] ?? false;
 $newImg = $_POST['newImg'] ?? false;
 
+$diplayFormErrors = false;
+
+//on submit...
 if (isset($_POST['newRecord'])) {
-    $recordModel->addRecord($newAlbumName, $newArtistName, $newReleaseYear, $newGenre, $newScore, $newImg);
+
+    //handle errors
+    $errors = [];
+
+    if (empty($newAlbumName)) {
+        $errors['albumName'] = 'Album name is required';
+    }
+    if (empty($newArtistName)) {
+        $errors['artistName'] = 'Artist name is required';
+    }
+    if (empty($newReleaseYea) || !is_numeric($newReleaseYear) || strlen((string)$releaseYear) !== 4) {
+        $errors['releaseYear'] = 'Invalid release year';
+    }
+    if ($newGenre === 0 || empty($newGenre)) {
+        $errors['genre'] = 'Music genre is required';
+    }
+    if (empty($newScore) || !is_numeric($newScore) || $newScore < 1 || $newScore > 10) {
+        $errors['score'] = 'number between 1 and 10';
+    }
+    if (empty($newImg)) {
+        $errors['img'] = 'Image link is required';
+    }
+    // if no errors proceed... if errors display
+    if (empty($errors)) {
+        $recordModel->addRecord($newAlbumName, $newArtistName, $newReleaseYear, $newGenre, $newScore, $newImg);
+    } else if (!empty($errors)) {
+        $diplayFormErrors = true;
+    }
 }
-
-
 ?>
 
 <!DOCTYPE html>
@@ -89,44 +117,103 @@ if (isset($_POST['newRecord'])) {
     </div>
     <!-- nav-bar -->
 
-        <!-- add record form -->
-        <div class='formContainer'>
-        <form class ='newRecordForm'method='POST'>
+    <!-- add record form -->
+    <div class='formContainerInfo'>
+        <p class='whiteCopy'>Add record to collection</p>
+        <p><a class='whiteCopy'>X</a></p>
+    </div>
+    <div class='formContainer'>
+        <form class='newRecordForm' method='POST'>
             <div class='inputField'>
                 <label for='newAlbumName'>Album name:</label>
-                <input type='text' name='newAlbumName' id='newAlbumName' />
+                <div>
+                    <input type='text' name='newAlbumName' id='newAlbumName' />
+                    <?php
+                        if ($diplayFormErrors && isset($errors['albumName'])) {
+                            echo "<p class='errorMessage'>$errors[albumName]</p>";
+                        } else {
+                            echo "<p class='errorMessagePlaceholder'>.</p>";
+                        }                        
+                    ?>
+                </div>
             </div>
             <div class='inputField'>
                 <label for='newArtistName'>Artist name:</label>
-                <input type='text' name='newArtistName' id='newArtistName' />
+                <div>
+                    <input type='text' name='newArtistName' id='newArtistName' />
+                    <?php
+                        if ($diplayFormErrors && isset($errors['artistName'])) {
+                            echo "<p class='errorMessage'>$errors[artistName]</p>";
+                        } else {
+                            echo "<p class='errorMessagePlaceholder'>.</p>";
+                        }                        
+                    ?>
+                </div>
             </div>
             <div class='inputField'>
                 <label for='newReleaseYear'>Release Year:</label>
-                <input type='number' name='newReleaseYear' id='newReleaseYear' />
+                <div>
+                    <input type='number' name='newReleaseYear' id='newReleaseYear' />
+                    <?php
+                        if ($diplayFormErrors && isset($errors['releaseYear'])) {
+                            echo "<p class='errorMessage'>$errors[releaseYear]</p>";
+                        } else {
+                            echo "<p class='errorMessagePlaceholder'>.</p>";
+                        }                        
+                    ?>
+                </div>
             </div>
             <div class='inputField'>
-            <label for='newGenre'>Genre:</label>
-                <select name='newGenre' id='newGenre'>
-                    <option value=1>Soul</option>
-                    <option value=2>Funk</option>
-                    <option value=3>Pop</option>
-                    <option value=4>Rock</option>
-                    <option value=5>Metal</option>
-                    <option value=6>Hip-Hop</option>
-                    <option value=7>Jazz</option>
-                    <option value=8>Country</option>
-                </select>
+                <label for='newGenre'>Music genre:</label>
+                <div>
+                    <select name='newGenre' id='newGenre'>
+                        <option value=0>Select...</option>
+                        <option class='Soul' value=1>Soul</option>
+                        <option value=2>Funk</option>
+                        <option value=3>Pop</option>
+                        <option value=4>Rock</option>
+                        <option value=5>Metal</option>
+                        <option value=6>Hip-Hop</option>
+                        <option value=7>Jazz</option>
+                        <option value=8>Country</option>
+                    </select>
+                    <?php
+                        if ($diplayFormErrors && isset($errors['genre'])) {
+                            echo "<p class='errorMessage'>$errors[genre]</p>";
+                        } else {
+                            echo "<p class='errorMessagePlaceholder'>.</p>";
+                        }                        
+                    ?>
+                </div>
             </div>
             <div class='inputField'>
                 <label for='newScore'>Score (1-10):</label>
-                <input type='number' name='newScore' id='newScore' />
+                <div>
+                    <input type='number' name='newScore' id='newScore' />
+                    <?php
+                        if ($diplayFormErrors && isset($errors['score'])) {
+                            echo "<p class='errorMessage'>$errors[score]</p>";
+                        } else {
+                            echo "<p class='errorMessagePlaceholder'>.</p>";
+                        }                        
+                    ?>
+                </div>
             </div>
             <div class='inputField'>
                 <label for='newImg'>Image (link):</label>
-                <input type='text' name='newImg' id='newImg' />
+                <div>
+                    <input type='text' name='newImg' id='newImg' />
+                    <?php
+                        if ($diplayFormErrors && isset($errors['img'])) {
+                            echo "<p class='errorMessage'>$errors[img]</p>";
+                        } else {
+                            echo "<p class='errorMessagePlaceholder'>.</p>";
+                        }                        
+                    ?>
+                </div>
             </div>
             <div class='inputField'>
-                <input type='submit' value='Add record' name='newRecord' />
+                <input class='button' type='submit' value='Add record' name='newRecord' />
             </div>
         </form>
     </div>
