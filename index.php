@@ -130,8 +130,8 @@ if (isset($_POST['newRecord'])) {
             <div class='inputField'>
                 <label for='newAlbumName'>Album name:</label>
                 <div>
-                    <input type='text' name='newAlbumName' id='newAlbumName' />
-                    <?php
+                <input type='text' value="<?php if($newAlbumName) echo $newAlbumName; ?>" name='newAlbumName' id='newAlbumName' />
+                <?php
                     if ($diplayFormErrors && isset($errors['albumName'])) {
                         echo "<p class='errorMessage'>$errors[albumName]</p>";
                     } else {
@@ -143,7 +143,7 @@ if (isset($_POST['newRecord'])) {
             <div class='inputField'>
                 <label for='newArtistName'>Artist name:</label>
                 <div>
-                    <input type='text' name='newArtistName' id='newArtistName' />
+                    <input type='text' value="<?php if($newArtistName) echo $newArtistName; ?>" name='newArtistName' id='newArtistName' />
                     <?php
                     if ($diplayFormErrors && isset($errors['artistName'])) {
                         echo "<p class='errorMessage'>$errors[artistName]</p>";
@@ -156,7 +156,7 @@ if (isset($_POST['newRecord'])) {
             <div class='inputField'>
                 <label for='newReleaseYear'>Release Year:</label>
                 <div>
-                    <input type='number' name='newReleaseYear' id='newReleaseYear' />
+                    <input type='number' value="<?php if($newReleaseYear) echo $newReleaseYear; ?>" name='newReleaseYear' id='newReleaseYear' />
                     <?php
                     if ($diplayFormErrors && isset($errors['releaseYear'])) {
                         echo "<p class='errorMessage'>$errors[releaseYear]</p>";
@@ -192,7 +192,7 @@ if (isset($_POST['newRecord'])) {
             <div class='inputField'>
                 <label for='newScore'>Score (1-10):</label>
                 <div>
-                    <input type='number' name='newScore' id='newScore' />
+                    <input type='number' value="<?php if($newScore) echo $newScore; ?>" name='newScore' id='newScore' />
                     <?php
                     if ($diplayFormErrors && isset($errors['score'])) {
                         echo "<p class='errorMessage'>$errors[score]</p>";
@@ -205,7 +205,7 @@ if (isset($_POST['newRecord'])) {
             <div class='inputField'>
                 <label for='newImg'>Image (link):</label>
                 <div>
-                    <input type='text' name='newImg' id='newImg' />
+                    <input type='text' value="<?php if($newImg) echo $newImg; ?>" name='newImg' id='newImg' />
                     <?php
                     if ($diplayFormErrors && isset($errors['img'])) {
                         echo "<p class='errorMessage'>$errors[img]</p>";
