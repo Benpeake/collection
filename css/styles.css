@@ -9,7 +9,7 @@
   --off-white: #D8DAD3;
   --black: #191308;
   --red: #F15156;
-  --green: #636940 ;
+  --green: #00A676 ;
 }
 
 body{
@@ -35,9 +35,15 @@ body{
   padding-left: 20px;
 }
 
+.successCopy{
+  color: var(--green);
+}
+
 .navLink{
   font-size: 1.6rem;
   font-weight: 600;
+  text-decoration: none;
+  color: var(--black);
 }
 
 .navLink:hover{
@@ -142,7 +148,8 @@ p {
 .formContainerInfo{
   display: flex;
   padding: 20px 0;
-  justify-content: space-between;
+  gap: 20px;
+  justify-content: flex-start;
   background-color: var(--black);
   font-size: 1.2rem;
 }
@@ -203,8 +210,9 @@ select{
 
 .button:hover{
   border: 2px solid var(--off-white);
-  color: var(--off-white);
+  color: var(--green);
   cursor: pointer;
+  border: 2px solid var(--green);
 }
 
 .errorMessagePlaceholder{

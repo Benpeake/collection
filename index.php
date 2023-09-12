@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 use Collection\RecordsModel;
 
@@ -45,13 +46,15 @@ $newScore = $_POST['newScore'] ?? false;
 $newImg = $_POST['newImg'] ?? false;
 
 $diplayFormErrors = false;
-// $displayFormSucces = false;
-// $formSuccess = 'record added to collection';
 
 //on submit...
 if (isset($_POST['newRecord'])) {
 
     //handle errors
+
+    function generateErrors()
+    {}
+
     $errors = [];
 
     if (empty($newAlbumName)) {
@@ -75,9 +78,10 @@ if (isset($_POST['newRecord'])) {
     // if no errors proceed... if errors display
     if (empty($errors)) {
         $recordModel->addRecord($newAlbumName, $newArtistName, $newReleaseYear, $newGenre, $newScore, $newImg);
-        header('Location: index.php');
+        header('Location: addrecord.php');
     } else if (!empty($errors)) {
         $diplayFormErrors = true;
+        unset($_SESSION['formSuccess']);
     }
 }
 ?>
@@ -107,14 +111,14 @@ if (isset($_POST['newRecord'])) {
     <script defer src="js/index.js"></script>
 </head>
 
-<body>
+<body id='addRecord'>
     <!-- nav-bar -->
     <div class='navBar'>
         <div class='leftNav'>
             <a class='navLink'>MyRecords</a>
         </div>
         <div class='rightNav'>
-            <!-- <a class='navLink'>+ Record</a> -->
+            <a class='navLink' href='#addRecord'>+ Record</a>
             <!-- <a class='navLink'>Archive</a> -->
         </div>
     </div>
@@ -123,6 +127,7 @@ if (isset($_POST['newRecord'])) {
     <!-- add record form -->
     <div class='formContainerInfo'>
         <p class='whiteCopy'>Add record to collection</p>
+        <p class='successCopy'><?php if(isset($_SESSION['formSuccess'])){echo $_SESSION['formSuccess'];}?></p>
         <!-- <p><a class='whiteCopy'>X</a></p> -->
     </div>
     <div class='formContainer'>
