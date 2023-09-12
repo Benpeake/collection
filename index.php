@@ -36,6 +36,19 @@ function displayAllRecords(array $records): string
     return $htmlOutput;
 }
 
+// Handle add record
+$newAlbumName = $_POST['newAlbumName'] ?? false;
+$newArtistName = $_POST['newArtistName'] ?? false;
+$newReleaseYear = $_POST['newReleaseYear'] ?? false;
+$newGenre = $_POST['newGenre'] ?? false;
+$newScore = $_POST['newScore'] ?? false;
+$newImg = $_POST['newImg'] ?? false;
+
+if (isset($_POST['newRecord'])) {
+    $recordModel->addRecord($newAlbumName, $newArtistName, $newReleaseYear, $newGenre, $newScore, $newImg);
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -70,11 +83,54 @@ function displayAllRecords(array $records): string
             <a class='navLink'>MyRecords</a>
         </div>
         <div class='rightNav'>
-            <!-- <a class='navLink'>+ Record</a>
-            <a class='navLink'>Archive</a> -->
+            <a class='navLink'>+ Record</a>
+            <!-- <a class='navLink'>Archive</a> -->
         </div>
     </div>
     <!-- nav-bar -->
+
+        <!-- add record form -->
+        <div class='formContainer'>
+        <form class ='newRecordForm'method='POST'>
+            <div class='inputField'>
+                <label for='newAlbumName'>Album name:</label>
+                <input type='text' name='newAlbumName' id='newAlbumName' />
+            </div>
+            <div class='inputField'>
+                <label for='newArtistName'>Artist name:</label>
+                <input type='text' name='newArtistName' id='newArtistName' />
+            </div>
+            <div class='inputField'>
+                <label for='newReleaseYear'>Release Year:</label>
+                <input type='number' name='newReleaseYear' id='newReleaseYear' />
+            </div>
+            <div class='inputField'>
+            <label for='newGenre'>Genre:</label>
+                <select name='newGenre' id='newGenre'>
+                    <option value=1>Soul</option>
+                    <option value=2>Funk</option>
+                    <option value=3>Pop</option>
+                    <option value=4>Rock</option>
+                    <option value=5>Metal</option>
+                    <option value=6>Hip-Hop</option>
+                    <option value=7>Jazz</option>
+                    <option value=8>Country</option>
+                </select>
+            </div>
+            <div class='inputField'>
+                <label for='newScore'>Score (1-10):</label>
+                <input type='number' name='newScore' id='newScore' />
+            </div>
+            <div class='inputField'>
+                <label for='newImg'>Image (link):</label>
+                <input type='text' name='newImg' id='newImg' />
+            </div>
+            <div class='inputField'>
+                <input type='submit' value='Add record' name='newRecord' />
+            </div>
+        </form>
+    </div>
+    <!-- add record form -->
 
     <!-- record display -->
     <div class='flexConatiner'>

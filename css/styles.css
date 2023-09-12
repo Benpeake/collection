@@ -71,13 +71,12 @@ body{
   padding: 20px;
 }
 
-p, .albumContainer {
+p {
   margin: 5px;
   margin-bottom: 0;
 }
 
 /* genre key style */
-
 .dot{
   background-color: #191308;
   height: 12px;
@@ -123,5 +122,32 @@ p, .albumContainer {
 .Country{
   background: #A57548;
 }
-
 /* genre key style */
+
+/* add record form */
+.formContainer{
+  padding: 20px;
+  display: flex;
+  justify-content: flex-start;
+  background-color: var(--off-black);
+}
+
+.newRecordForm{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.inputField{
+  color: var(--white);
+}
+
+.inputField{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
+}
+/* add record form */

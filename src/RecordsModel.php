@@ -56,4 +56,30 @@ class RecordsModel
 
         return $allRecords;
     }
+
+    // Add record
+    public function addRecord(
+        string $albumName,
+        string $artistName,
+        int $releaseYear,
+        int $genreID,
+        int $score,
+        string $img,
+    )
+    {
+        $query = $this->db->prepare(
+        "INSERT INTO `records`
+        (`album_name`,`artist_name`, `release_year`, `genre_id`, `score`, `img`)
+        VALUES (:albumName, :artistName, :releaseYear, :genreID, :score, :img);
+        ");
+
+        $query->bindParam('albumName', $albumName);
+        $query->bindParam('artistName', $artistName);
+        $query->bindParam('releaseYear', $releaseYear);
+        $query->bindParam('genreID', $genreID);
+        $query->bindParam('score', $score);
+        $query->bindParam('img', $img);
+
+        $query->execute();       
+    }
 }
