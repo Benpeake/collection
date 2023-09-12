@@ -81,8 +81,5 @@ class RecordsModel
         $query->bindParam('img', $img);
 
         $query->execute();
-
     }
-    
-    
 }

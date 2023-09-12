@@ -45,8 +45,8 @@ $newScore = $_POST['newScore'] ?? false;
 $newImg = $_POST['newImg'] ?? false;
 
 $diplayFormErrors = false;
-$displayFormSucces = false;
-$formSuccess = 'record added to collection';
+// $displayFormSucces = false;
+// $formSuccess = 'record added to collection';
 
 //on submit...
 if (isset($_POST['newRecord'])) {
@@ -75,7 +75,7 @@ if (isset($_POST['newRecord'])) {
     // if no errors proceed... if errors display
     if (empty($errors)) {
         $recordModel->addRecord($newAlbumName, $newArtistName, $newReleaseYear, $newGenre, $newScore, $newImg);
-        $displayFormSucces = true;
+        header('Location: index.php');
     } else if (!empty($errors)) {
         $diplayFormErrors = true;
     }
@@ -132,11 +132,11 @@ if (isset($_POST['newRecord'])) {
                 <div>
                     <input type='text' name='newAlbumName' id='newAlbumName' />
                     <?php
-                        if ($diplayFormErrors && isset($errors['albumName'])) {
-                            echo "<p class='errorMessage'>$errors[albumName]</p>";
-                        } else {
-                            echo "<p class='errorMessagePlaceholder'>.</p>";
-                        }                        
+                    if ($diplayFormErrors && isset($errors['albumName'])) {
+                        echo "<p class='errorMessage'>$errors[albumName]</p>";
+                    } else {
+                        echo "<p class='errorMessagePlaceholder'>.</p>";
+                    }
                     ?>
                 </div>
             </div>
@@ -145,11 +145,11 @@ if (isset($_POST['newRecord'])) {
                 <div>
                     <input type='text' name='newArtistName' id='newArtistName' />
                     <?php
-                        if ($diplayFormErrors && isset($errors['artistName'])) {
-                            echo "<p class='errorMessage'>$errors[artistName]</p>";
-                        } else {
-                            echo "<p class='errorMessagePlaceholder'>.</p>";
-                        }                        
+                    if ($diplayFormErrors && isset($errors['artistName'])) {
+                        echo "<p class='errorMessage'>$errors[artistName]</p>";
+                    } else {
+                        echo "<p class='errorMessagePlaceholder'>.</p>";
+                    }
                     ?>
                 </div>
             </div>
@@ -158,11 +158,11 @@ if (isset($_POST['newRecord'])) {
                 <div>
                     <input type='number' name='newReleaseYear' id='newReleaseYear' />
                     <?php
-                        if ($diplayFormErrors && isset($errors['releaseYear'])) {
-                            echo "<p class='errorMessage'>$errors[releaseYear]</p>";
-                        } else {
-                            echo "<p class='errorMessagePlaceholder'>.</p>";
-                        }                        
+                    if ($diplayFormErrors && isset($errors['releaseYear'])) {
+                        echo "<p class='errorMessage'>$errors[releaseYear]</p>";
+                    } else {
+                        echo "<p class='errorMessagePlaceholder'>.</p>";
+                    }
                     ?>
                 </div>
             </div>
@@ -181,11 +181,11 @@ if (isset($_POST['newRecord'])) {
                         <option value=8>Country</option>
                     </select>
                     <?php
-                        if ($diplayFormErrors && isset($errors['genre'])) {
-                            echo "<p class='errorMessage'>$errors[genre]</p>";
-                        } else {
-                            echo "<p class='errorMessagePlaceholder'>.</p>";
-                        }                        
+                    if ($diplayFormErrors && isset($errors['genre'])) {
+                        echo "<p class='errorMessage'>$errors[genre]</p>";
+                    } else {
+                        echo "<p class='errorMessagePlaceholder'>.</p>";
+                    }
                     ?>
                 </div>
             </div>
@@ -194,11 +194,11 @@ if (isset($_POST['newRecord'])) {
                 <div>
                     <input type='number' name='newScore' id='newScore' />
                     <?php
-                        if ($diplayFormErrors && isset($errors['score'])) {
-                            echo "<p class='errorMessage'>$errors[score]</p>";
-                        } else {
-                            echo "<p class='errorMessagePlaceholder'>.</p>";
-                        }                        
+                    if ($diplayFormErrors && isset($errors['score'])) {
+                        echo "<p class='errorMessage'>$errors[score]</p>";
+                    } else {
+                        echo "<p class='errorMessagePlaceholder'>.</p>";
+                    }
                     ?>
                 </div>
             </div>
@@ -207,22 +207,17 @@ if (isset($_POST['newRecord'])) {
                 <div>
                     <input type='text' name='newImg' id='newImg' />
                     <?php
-                        if ($diplayFormErrors && isset($errors['img'])) {
-                            echo "<p class='errorMessage'>$errors[img]</p>";
-                        } else {
-                            echo "<p class='errorMessagePlaceholder'>.</p>";
-                        }                        
+                    if ($diplayFormErrors && isset($errors['img'])) {
+                        echo "<p class='errorMessage'>$errors[img]</p>";
+                    } else {
+                        echo "<p class='errorMessagePlaceholder'>.</p>";
+                    }
                     ?>
                 </div>
             </div>
             <div class='formContainerInfo'>
                 <div class='inputField'>
                     <input class='button' type='submit' value='Add record' name='newRecord' />
-                    <?php
-                    // // if($displayFormSucces){
-                    //     echo "<p>$formSuccess</p>";
-                    // // }
-                    ?>
                 </div>
             </div>
         </form>
