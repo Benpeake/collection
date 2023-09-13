@@ -98,4 +98,36 @@ class RecordsModel
 
         return true;
     }
+
+    //updat a record by ID
+    public function updateRecord(
+        $albumName,
+        $artistName,
+        $releaseYear,
+        $genreID,
+        $score,
+        $img,
+        $id,
+    ) {
+        $query = $this->db->prepare(
+            "UPDATE `records` 
+            SET `album_name` = :albumName, 
+                `artist_name` = :artistName, 
+                `release_year` = :releaseYear, 
+                `genre_id` = :genreID, 
+                `score` = :score, 
+                `img` = :img
+            WHERE `id` = :idNum"
+        );
+
+        $query->bindParam('albumName', $albumName);
+        $query->bindParam('artistName', $artistName);
+        $query->bindParam('releaseYear', $releaseYear);
+        $query->bindParam('genreID', $genreID);
+        $query->bindParam('score', $score);
+        $query->bindParam('img', $img);
+        $query->bindParam('idNum', $id);
+
+        $query->execute();
+    }
 }
