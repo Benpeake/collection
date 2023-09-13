@@ -9,7 +9,8 @@
   --off-white: #D8DAD3;
   --black: #191308;
   --red: #F15156;
-  --green: #00A676 ;
+  --green: #00A676;
+  --dark-grey: #919985;
 }
 
 body{
@@ -247,6 +248,7 @@ input[type=number] {
   font-size: 0.8rem;
   border: none;
   border-radius: 8px;
+  background-color: var(--dark-grey);
 }
 
 .removeButton:hover{
