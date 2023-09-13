@@ -30,7 +30,7 @@ class RecordsModel
             FROM `records`
             INNER JOIN `genre`
             ON `records`.`genre_id` = `genre`.`id`
-            where `records`.`deleted` = 0 
+            WHERE `records`.`deleted` = 0 
         "
         );
 
@@ -79,6 +79,16 @@ class RecordsModel
         $query->bindParam('genreID', $genreID);
         $query->bindParam('score', $score);
         $query->bindParam('img', $img);
+
+        $query->execute();
+    }
+
+    // soft delete record by ID
+    public function removeRecord($id)
+    {
+        $query = $this->db->prepare("UPDATE `records` SET `deleted` = 1 WHERE `id` = :idNum LIMIT 1");
+
+        $query->bindParam('idNum', $id);
 
         $query->execute();
     }

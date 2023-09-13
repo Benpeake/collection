@@ -7,6 +7,4 @@ $_SESSION['formSuccess'] = 'Record added to collection :)';
 header('Location: index.php');
 
 
-
-
 ?>

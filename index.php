@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+use Collection\GenresModel;
 use Collection\RecordsModel;
 
 require_once 'vendor/autoload.php';
@@ -11,9 +12,13 @@ $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
 //create record model
 $recordModel = new RecordsModel($db);
+$genresModel = new GenresModel($db);
 
 // get all products
 $allRecords = $recordModel->getAllRecords();
+
+// get all genres
+$genres = $genresModel->getAllGenres();
 
 //display records function
 function displayAllRecords(array $records): string
@@ -37,7 +42,21 @@ function displayAllRecords(array $records): string
     return $htmlOutput;
 }
 
-// Handle add record
+//display genres function
+function displayAllGenres(array $genres):string
+{
+    $htmlOutput = '';
+
+    foreach ($genres as $genre){
+        $htmlOutput .=
+        "<option value={$genre['id']}>{$genre['name']}</option>";
+    }
+
+    return  $htmlOutput;
+}
+
+
+// Handle add-record input
 $newAlbumName = $_POST['newAlbumName'] ?? false;
 $newArtistName = $_POST['newArtistName'] ?? false;
 $newReleaseYear = $_POST['newReleaseYear'] ?? false;
@@ -45,42 +64,58 @@ $newGenre = $_POST['newGenre'] ?? false;
 $newScore = $_POST['newScore'] ?? false;
 $newImg = $_POST['newImg'] ?? false;
 
-$diplayFormErrors = false;
+//Generate for submit function 
+function generateFormSubmitErrors(
+    $newAlbumName,
+    $newArtistName,
+    $newReleaseYear,
+    $newGenre,
+    $newScore,
+    $newImg
+):array
+{
+        $errors = [];
 
-//on submit...
+        if (empty($newAlbumName)) {
+            $errors['albumName'] = 'Album name is required';
+        }
+        if (empty($newArtistName)) {
+            $errors['artistName'] = 'Artist name is required';
+        }
+        if (empty($newReleaseYear) || !is_numeric($newReleaseYear) || strlen((string)$newReleaseYear) != 4) {
+            $errors['releaseYear'] = 'Invalid release year';
+        }
+        if ($newGenre === 0 || empty($newGenre)) {
+            $errors['genre'] = 'Music genre is required';
+        }
+        if (empty($newScore) || !is_numeric($newScore) || $newScore < 1 || $newScore > 10) {
+            $errors['score'] = 'number between 1 and 10';
+        }
+        if (empty($newImg) || !preg_match('/\bhttps?:\/\/\S+\.(jpg)\b/i', $newImg)) {
+            $errors['img'] = 'Image link is required';
+        }
+
+        return $errors;
+}
+
+//on new record submit...
 if (isset($_POST['newRecord'])) {
+//generate errros function 
+    $newRecordErrors = generateFormSubmitErrors(
+        $newAlbumName,
+        $newArtistName,
+        $newReleaseYear,
+        $newGenre,
+        $newScore,
+        $newImg
+    );
 
-    //handle errors
-
-    function generateErrors()
-    {}
-
-    $errors = [];
-
-    if (empty($newAlbumName)) {
-        $errors['albumName'] = 'Album name is required';
-    }
-    if (empty($newArtistName)) {
-        $errors['artistName'] = 'Artist name is required';
-    }
-    if (empty($newReleaseYear) || !is_numeric($newReleaseYear) || strlen((string)$newReleaseYear) != 4) {
-        $errors['releaseYear'] = 'Invalid release year';
-    }
-    if ($newGenre === 0 || empty($newGenre)) {
-        $errors['genre'] = 'Music genre is required';
-    }
-    if (empty($newScore) || !is_numeric($newScore) || $newScore < 1 || $newScore > 10) {
-        $errors['score'] = 'number between 1 and 10';
-    }
-    if (empty($newImg)) {
-        $errors['img'] = 'Image link is required';
-    }
     // if no errors proceed... if errors display
-    if (empty($errors)) {
+    if (empty($newRecordErrors)) {
         $recordModel->addRecord($newAlbumName, $newArtistName, $newReleaseYear, $newGenre, $newScore, $newImg);
         header('Location: addrecord.php');
-    } else if (!empty($errors)) {
-        $diplayFormErrors = true;
+        exit();
+    } else if (!empty($newRecordErrors)) {
         unset($_SESSION['formSuccess']);
     }
 }
@@ -137,8 +172,8 @@ if (isset($_POST['newRecord'])) {
                 <div>
                 <input type='text' value="<?php if($newAlbumName) echo $newAlbumName; ?>" name='newAlbumName' id='newAlbumName' />
                 <?php
-                    if ($diplayFormErrors && isset($errors['albumName'])) {
-                        echo "<p class='errorMessage'>$errors[albumName]</p>";
+                    if (isset($newRecordErrors['albumName'])) {
+                        echo "<p class='errorMessage'>{$newRecordErrors['albumName']}</p>";
                     } else {
                         echo "<p class='errorMessagePlaceholder'>.</p>";
                     }
@@ -150,8 +185,8 @@ if (isset($_POST['newRecord'])) {
                 <div>
                     <input type='text' value="<?php if($newArtistName) echo $newArtistName; ?>" name='newArtistName' id='newArtistName' />
                     <?php
-                    if ($diplayFormErrors && isset($errors['artistName'])) {
-                        echo "<p class='errorMessage'>$errors[artistName]</p>";
+                    if (isset($newRecordErrors['artistName'])) {
+                        echo "<p class='errorMessage'>{$newRecordErrors['artistName']}</p>";
                     } else {
                         echo "<p class='errorMessagePlaceholder'>.</p>";
                     }
@@ -159,12 +194,12 @@ if (isset($_POST['newRecord'])) {
                 </div>
             </div>
             <div class='inputField'>
-                <label for='newReleaseYear'>Release Year:</label>
+                <label for='newReleaseYear'>Release year:</label>
                 <div>
-                    <input type='number' value="<?php if($newReleaseYear) echo $newReleaseYear; ?>" name='newReleaseYear' id='newReleaseYear' />
+                    <input type='number' value="<?php if($newReleaseYear) echo $newReleaseYear; ?>" name='newReleaseYear' id='newReleaseYear' min="1000" max="2023"/>
                     <?php
-                    if ($diplayFormErrors && isset($errors['releaseYear'])) {
-                        echo "<p class='errorMessage'>$errors[releaseYear]</p>";
+                    if (isset($newRecordErrors['releaseYear'])) {
+                        echo "<p class='errorMessage'>{$newRecordErrors['releaseYear']}</p>";
                     } else {
                         echo "<p class='errorMessagePlaceholder'>.</p>";
                     }
@@ -176,18 +211,13 @@ if (isset($_POST['newRecord'])) {
                 <div>
                     <select name='newGenre' id='newGenre'>
                         <option value=0>Select...</option>
-                        <option class='Soul' value=1>Soul</option>
-                        <option value=2>Funk</option>
-                        <option value=3>Pop</option>
-                        <option value=4>Rock</option>
-                        <option value=5>Metal</option>
-                        <option value=6>Hip-Hop</option>
-                        <option value=7>Jazz</option>
-                        <option value=8>Country</option>
+                        <?php
+                        echo displayAllGenres($genres);
+                        ?>
                     </select>
                     <?php
-                    if ($diplayFormErrors && isset($errors['genre'])) {
-                        echo "<p class='errorMessage'>$errors[genre]</p>";
+                    if (isset($newRecordErrors['genre'])) {
+                        echo "<p class='errorMessage'>{$newRecordErrors['genre']}</p>";
                     } else {
                         echo "<p class='errorMessagePlaceholder'>.</p>";
                     }
@@ -197,10 +227,10 @@ if (isset($_POST['newRecord'])) {
             <div class='inputField'>
                 <label for='newScore'>Score (1-10):</label>
                 <div>
-                    <input type='number' value="<?php if($newScore) echo $newScore; ?>" name='newScore' id='newScore' />
+                    <input type='number' value="<?php if($newScore) echo $newScore; ?>" name='newScore' id='newScore' min='1' max='10'/>
                     <?php
-                    if ($diplayFormErrors && isset($errors['score'])) {
-                        echo "<p class='errorMessage'>$errors[score]</p>";
+                    if (isset($newRecordErrors['score'])) {
+                        echo "<p class='errorMessage'>{$newRecordErrors['score']}</p>";
                     } else {
                         echo "<p class='errorMessagePlaceholder'>.</p>";
                     }
@@ -212,8 +242,8 @@ if (isset($_POST['newRecord'])) {
                 <div>
                     <input type='text' value="<?php if($newImg) echo $newImg; ?>" name='newImg' id='newImg' />
                     <?php
-                    if ($diplayFormErrors && isset($errors['img'])) {
-                        echo "<p class='errorMessage'>$errors[img]</p>";
+                    if (isset($newRecordErrors['img'])) {
+                        echo "<p class='errorMessage'>{$newRecordErrors['img']}</p>";
                     } else {
                         echo "<p class='errorMessagePlaceholder'>.</p>";
                     }
