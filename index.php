@@ -72,6 +72,7 @@ $displayUpdateForm = false;
 if (isset($_POST['update'])) {
 
     unset($_GET['updated']);
+    unset($_GET['success']);
 
     $currentRecord = $recordModel->getRecord($_POST['recordIDUpdate']);
 
@@ -110,6 +111,11 @@ if (isset($_POST['updateRecord'])) {
         unset($_GET['updated']);
     }
 }
+
+if(isset($_POST['addRecordForm'])){
+    $displayUpdateForm = false;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -143,8 +149,8 @@ if (isset($_POST['updateRecord'])) {
         <div class='leftNav'>
             <a class='navLink'>MyRecords</a>
         </div>
-        <div class='rightNav'>
-            <a class='navLink' href='#addRecord'>+ Record</a>
+        <div class='rightNav'> 
+            <form method="POST"><input href='#addRecord' class='navLink notButton' type='submit' value='+ Record' name='addRecordForm' /></form>
             <!-- <a class='navLink'>Archive</a> -->
         </div>
     </div>
@@ -155,7 +161,7 @@ if (isset($_POST['updateRecord'])) {
         <?php
 
         if ($displayUpdateForm) {
-            echo "<p class='whiteCopy'>Update $newAlbumName</p>";
+            echo "<p class='whiteCopy'>Update <span class='underline'>$newAlbumName</span></p>";
         } else {
             echo "<p class='whiteCopy'>Add record to collection</p>";
         }
