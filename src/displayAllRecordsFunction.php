@@ -21,7 +21,7 @@ function displayAllRecords(array $records): string
                     </form>
                     <form method='POST'>
                         <input type='submit' value='Update' name='update' class='removeButton' />
-                        <input href='#addRecord' type='hidden' name='recordID' value='$record->id' />
+                        <input href='#addRecord' type='hidden' name='recordIDUpdate' value='$record->id' />
                     </form>                  
                 </div>
             </div>

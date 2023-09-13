@@ -109,7 +109,7 @@ class RecordsModel
         int $genreID,
         int $score,
         string $img,
-        int $id,
+        int $id
     ) {
         $query = $this->db->prepare(
             "UPDATE `records` 
@@ -119,7 +119,8 @@ class RecordsModel
                 `genre_id` = :genreID, 
                 `score` = :score, 
                 `img` = :img
-            WHERE `id` = :idNum"
+            WHERE `id` = :idNum
+            LIMIT 1"
         );
 
         $query->bindParam('albumName', $albumName);

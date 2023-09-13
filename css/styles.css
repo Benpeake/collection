@@ -105,34 +105,46 @@ p {
 
 .Funk{
   background: #2B9720;
+  color: #2B9720;
 }
 
 .Hip-Hop{
-  background: #5603AD;
+  background: #9636FC;
+  color: #9636FC;
 }
 
 .Soul{
   background: #FF7F11;
+  color:#FF7F11;
 }
 
 .Pop{
   background: #F694C1;
+  color: #F694C1;
 }
 
 .Rock{
   background: #F13030;
+  color: #F13030;
 }
 
 .Metal{
-  background: #0E1428;
+  background: #A52753;
+  color: #A52753;
 }
 
 .Jazz{
   background: #232ED1;
+  color: #232ED1;
 }
 
 .Country{
   background: #A57548;
+  color: #A57548;
+}
+
+.noBG{
+  background: var(--black);
 }
 /* genre key style */
 
