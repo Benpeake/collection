@@ -28,7 +28,7 @@ class DisplayAllRecordsTest extends TestCase
                 <p class='smallCopy'><strong>Album:</strong> Album 1</p>
                 <p class='smallCopy'><strong>Artist:</strong> Artist 1</p>
                 <p class='smallCopy'><strong>Year of release:</strong> 2001</p>
-                <p class='smallCopy'><strong>Genre:</strong> Rock</p>
+                <div class='genre-input'><p class='smallCopy'><strong>Genre:</strong> Rock</p><div class='dot Rock'></div></div>
                 <p class='smallCopy'><strong>Score:</strong> 1/10</p>
             </div>
         </div>";

@@ -103,7 +103,6 @@ if (isset($_POST['newRecord'])) {
             echo "<p class='successCopy'>$successMessage</p>";
         }
         ?>
-        <!-- <p><a class='whiteCopy'>X</a></p> -->
     </div>
     <div class='formContainer'>
         <form class='newRecordForm' method='POST'>
