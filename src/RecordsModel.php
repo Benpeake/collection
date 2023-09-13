@@ -82,4 +82,20 @@ class RecordsModel
 
         $query->execute();
     }
+
+    // soft delete record by ID
+    public function removeRecord(int $id): bool
+    {
+        $query = $this->db->prepare("UPDATE `records` SET `deleted` = 1 WHERE `id` = :idNum LIMIT 1");
+
+        $query->bindParam('idNum', $id);
+
+        $query->execute();
+
+        if (!$id) {
+            return false;
+        }
+
+        return true;
+    }
 }
