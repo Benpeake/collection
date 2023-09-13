@@ -1,41 +1,60 @@
 <?php
 
+use Collection\GenresModel;
 use Collection\RecordsModel;
 
 require_once 'vendor/autoload.php';
+require_once 'src/displayAllGenresFunction.php';
+require_once 'src/generateFormSubmitErrorsFunction.php';
+require_once 'src/DisplayAllRecordsFunction.php';
 
 //connect and format db
 $db = new PDO('mysql:host=db; dbname=collection', 'root', 'password');
 $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
-//create record model
+//create record models
 $recordModel = new RecordsModel($db);
+$genresModel = new GenresModel($db);
 
 // get all products
 $allRecords = $recordModel->getAllRecords();
 
-//display records function
-function displayAllRecords(array $records): string
-{
-    $htmlOutput = '';
+// get all genres
+$genres = $genresModel->getAllGenres();
 
-    foreach ($records as $record) {
-        $htmlOutput .=
-            "<div class='albumContainer'>
-            <img src='$record->img' alt='$record->album_name' width='300' height='300' >
-            <div class='albumStats'>
-                <p class='smallCopy'><strong>Album:</strong> $record->album_name</p>
-                <p class='smallCopy'><strong>Artist:</strong> $record->artist_name</p>
-                <p class='smallCopy'><strong>Year of release:</strong> $record->release_year</p>
-                <div class='genre-input'><p class='smallCopy'><strong>Genre:</strong> $record->genre_name</p><div class='dot $record->genre_name'></div></div>
-                <p class='smallCopy'><strong>Score:</strong> $record->score/10</p>
-            </div>
-        </div>";
+// Susccess message 
+$successMessage = 'Record added to collection :)';
+
+// Handle add-record input
+$newAlbumName = $_POST['newAlbumName'] ?? false;
+$newArtistName = $_POST['newArtistName'] ?? false;
+$newReleaseYear = $_POST['newReleaseYear'] ?? false;
+$newGenre = $_POST['newGenre'] ?? false;
+$newScore = $_POST['newScore'] ?? false;
+$newImg = $_POST['newImg'] ?? false;
+
+
+//on new record submit...
+if (isset($_POST['newRecord'])) {
+
+    $newRecordErrors = generateFormSubmitErrors(
+        $newAlbumName,
+        $newArtistName,
+        $newReleaseYear,
+        $newGenre,
+        $newScore,
+        $newImg
+    );
+
+    // if no errors proceed... if errors display
+    if (empty($newRecordErrors)) {
+        $recordModel->addRecord($newAlbumName, $newArtistName, $newReleaseYear, $newGenre, $newScore, $newImg);
+        header('Location: addrecord.php');
+        exit();
+    } else if (!empty($newRecordErrors)) {
+        unset($_GET['success']);
     }
-
-    return $htmlOutput;
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -63,18 +82,121 @@ function displayAllRecords(array $records): string
     <script defer src="js/index.js"></script>
 </head>
 
-<body>
+<body id='addRecord'>
     <!-- nav-bar -->
     <div class='navBar'>
         <div class='leftNav'>
             <a class='navLink'>MyRecords</a>
         </div>
         <div class='rightNav'>
-            <!-- <a class='navLink'>+ Record</a>
-            <a class='navLink'>Archive</a> -->
+            <a class='navLink' href='#addRecord'>+ Record</a>
+            <!-- <a class='navLink'>Archive</a> -->
         </div>
     </div>
     <!-- nav-bar -->
+
+    <!-- add record form -->
+    <div class='formContainerInfo'>
+        <p class='whiteCopy'>Add record to collection</p>
+        <?php
+        if (isset($_GET['success'])) {
+            echo "<p class='successCopy'>$successMessage</p>";
+        }
+        ?>
+    </div>
+    <div class='formContainer'>
+        <form class='newRecordForm' method='POST'>
+            <div class='inputField'>
+                <label for='newAlbumName'>Album name:</label>
+                <div>
+                    <input type='text' value="<?php if ($newAlbumName) echo $newAlbumName; ?>" name='newAlbumName' id='newAlbumName' />
+                    <?php
+                    if (isset($newRecordErrors['albumName'])) {
+                        echo "<p class='errorMessage'>{$newRecordErrors['albumName']}</p>";
+                    } else {
+                        echo "<p class='errorMessagePlaceholder'>.</p>";
+                    }
+                    ?>
+                </div>
+            </div>
+            <div class='inputField'>
+                <label for='newArtistName'>Artist name:</label>
+                <div>
+                    <input type='text' value="<?php if ($newArtistName) echo $newArtistName; ?>" name='newArtistName' id='newArtistName' />
+                    <?php
+                    if (isset($newRecordErrors['artistName'])) {
+                        echo "<p class='errorMessage'>{$newRecordErrors['artistName']}</p>";
+                    } else {
+                        echo "<p class='errorMessagePlaceholder'>.</p>";
+                    }
+                    ?>
+                </div>
+            </div>
+            <div class='inputField'>
+                <label for='newReleaseYear'>Release year:</label>
+                <div>
+                    <input type='number' value="<?php if ($newReleaseYear) echo $newReleaseYear; ?>" name='newReleaseYear' id='newReleaseYear' min="1000" max="2023" />
+                    <?php
+                    if (isset($newRecordErrors['releaseYear'])) {
+                        echo "<p class='errorMessage'>{$newRecordErrors['releaseYear']}</p>";
+                    } else {
+                        echo "<p class='errorMessagePlaceholder'>.</p>";
+                    }
+                    ?>
+                </div>
+            </div>
+            <div class='inputField'>
+                <label for='newGenre'>Music genre:</label>
+                <div>
+                    <select name='newGenre' id='newGenre'>
+                        <option value=0>Select...</option>
+                        <?php
+                        echo displayAllGenres($genres);
+                        ?>
+                    </select>
+                    <?php
+                    if (isset($newRecordErrors['genre'])) {
+                        echo "<p class='errorMessage'>{$newRecordErrors['genre']}</p>";
+                    } else {
+                        echo "<p class='errorMessagePlaceholder'>.</p>";
+                    }
+                    ?>
+                </div>
+            </div>
+            <div class='inputField'>
+                <label for='newScore'>Score (1-10):</label>
+                <div>
+                    <input type='number' value="<?php if ($newScore) echo $newScore; ?>" name='newScore' id='newScore' min='1' max='10' />
+                    <?php
+                    if (isset($newRecordErrors['score'])) {
+                        echo "<p class='errorMessage'>{$newRecordErrors['score']}</p>";
+                    } else {
+                        echo "<p class='errorMessagePlaceholder'>.</p>";
+                    }
+                    ?>
+                </div>
+            </div>
+            <div class='inputField'>
+                <label for='newImg'>Image (link):</label>
+                <div>
+                    <input type='text' value="<?php if ($newImg) echo $newImg; ?>" name='newImg' id='newImg' />
+                    <?php
+                    if (isset($newRecordErrors['img'])) {
+                        echo "<p class='errorMessage'>{$newRecordErrors['img']}</p>";
+                    } else {
+                        echo "<p class='errorMessagePlaceholder'>.</p>";
+                    }
+                    ?>
+                </div>
+            </div>
+            <div class='formContainerInfo'>
+                <div class='inputField'>
+                    <input class='button' type='submit' value='Add record' name='newRecord' />
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- add record form -->
 
     <!-- record display -->
     <div class='flexConatiner'>

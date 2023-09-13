@@ -7,9 +7,9 @@
 :root{
   --white: #F1F2EB;
   --off-white: #D8DAD3;
-  --off-black: #191308;
-  --red: #EE5622;
-  --green: #636940 ;
+  --black: #191308;
+  --red: #F15156;
+  --green: #00A676 ;
 }
 
 body{
@@ -30,14 +30,25 @@ body{
   font-size: 0.9rem;
 }
 
+.whiteCopy{
+  color: var(--white);
+  padding-left: 20px;
+}
+
+.successCopy{
+  color: var(--green);
+}
+
 .navLink{
   font-size: 1.6rem;
   font-weight: 600;
+  text-decoration: none;
+  color: var(--black);
 }
 
 .navLink:hover{
   cursor: pointer;
-  color: var(--off-black);
+  color: var(--black);
 }
 
 .navBar{
@@ -71,13 +82,12 @@ body{
   padding: 20px;
 }
 
-p, .albumContainer {
+p {
   margin: 5px;
   margin-bottom: 0;
 }
 
 /* genre key style */
-
 .dot{
   background-color: #191308;
   height: 12px;
@@ -123,5 +133,111 @@ p, .albumContainer {
 .Country{
   background: #A57548;
 }
-
 /* genre key style */
+
+/* add record form */
+.formContainer{
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+  padding: 20px;
+  justify-content: flex-start;
+  background-color: var(--black);
+}
+
+.formContainerInfo{
+  display: flex;
+  padding: 20px 0;
+  gap: 20px;
+  justify-content: flex-start;
+  background-color: var(--black);
+  font-size: 1.2rem;
+}
+
+.newRecordForm{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-content: center;
+  align-items: center;
+  gap: 0px 30px;
+}
+
+.inputField{
+  color: var(--white);
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.inputField{
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 5px;
+  outline: none;
+}
+
+
+input{
+  background-color: var(--black);
+  color: var(--white);
+  border: 2px solid var(--white);
+  padding: 5px 10px;
+}
+
+input:focus{
+  outline: none;
+}
+
+select{
+  background-color: var(--black);
+  color: var(--white);
+  border: 2px solid var(--white);
+  width: 271px;
+  height: 36.5px;
+  padding: 5px 10px;
+
+}
+
+.button{
+  border: 2px solid var(--white);
+  background: var(--black);
+  color: var(--white);
+  padding: 5px 10px;
+  border-radius: 10px;
+  font-size: 1.2rem;
+}
+
+.button:hover{
+  border: 2px solid var(--off-white);
+  color: var(--green);
+  cursor: pointer;
+  border: 2px solid var(--green);
+}
+
+.errorMessagePlaceholder{
+  color: var(--black);
+  font-weight: 400;
+  padding-left: 0;
+  margin-left: 0;
+}
+
+.errorMessage{
+  color: var(--red);
+  font-weight: 400;
+  padding-left: 0;
+  margin-left: 0;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+/* add record form */
