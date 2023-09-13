@@ -65,6 +65,13 @@ if (isset($_POST['remove'])) {
     }
 }
 
+//handle update record request P1
+if (isset($_POST['update'])){
+
+    
+
+}
+
 ?>
 
 <!DOCTYPE html>
