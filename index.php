@@ -64,7 +64,7 @@ $newGenre = $_POST['newGenre'] ?? false;
 $newScore = $_POST['newScore'] ?? false;
 $newImg = $_POST['newImg'] ?? false;
 
-//Generate for submit function 
+//Generate form submit errors function 
 function generateFormSubmitErrors(
     $newAlbumName,
     $newArtistName,
@@ -89,7 +89,7 @@ function generateFormSubmitErrors(
             $errors['genre'] = 'Music genre is required';
         }
         if (empty($newScore) || !is_numeric($newScore) || $newScore < 1 || $newScore > 10) {
-            $errors['score'] = 'number between 1 and 10';
+            $errors['score'] = 'Number between 1 and 10';
         }
         if (empty($newImg) || !preg_match('/\bhttps?:\/\/\S+\.(jpg)\b/i', $newImg)) {
             $errors['img'] = 'Image link is required';
