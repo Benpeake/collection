@@ -2,6 +2,7 @@
 use PHPUnit\Framework\TestCase;
 
 require_once 'src/displayAllRecordsFunction.php';
+require_once 'src/generateFormSubmitErrorsFunction.php';
 
 class DisplayAllRecordsTest extends TestCase
 {
@@ -36,6 +37,20 @@ class DisplayAllRecordsTest extends TestCase
 
         //comparing
         $this->assertStringContainsString($expected, $result);
+    }
+
+    public function test_failure_displayAllRecords()
+    {
+
+        $formSubmission = generateFormSubmitErrors('', '', '', '', '', '');
+
+        $this->assertArrayHasKey('albumName', $formSubmission);
+        $this->assertArrayHasKey('artistName', $formSubmission);
+        $this->assertArrayHasKey('releaseYear', $formSubmission);
+        $this->assertArrayHasKey('genre', $formSubmission);
+        $this->assertArrayHasKey('score', $formSubmission);
+        $this->assertArrayHasKey('img', $formSubmission);
+
     }
 
 }
