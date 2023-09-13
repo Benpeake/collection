@@ -26,6 +26,7 @@ class RecordsModel
             `records`.`score`,
             `records`.`img`,
             `records`.`deleted`,
+            `records`.`genre_id`,
             `genre`.`name` AS `genre_name`
             FROM `records`
             INNER JOIN `genre`
@@ -51,6 +52,7 @@ class RecordsModel
                 $recordData['img'],
                 $recordData['deleted'],
                 $recordData['genre_name'],
+                $recordData['genre_id']
             );
         }
 
@@ -143,6 +145,7 @@ class RecordsModel
             `records`.`score`,
             `records`.`img`,
             `records`.`deleted`,
+            `records`.`genre_id`,
             `genre`.`name` AS `genre_name`
             FROM `records`
             INNER JOIN `genre`
@@ -169,7 +172,8 @@ class RecordsModel
             $recordData['score'],
             $recordData['img'],
             $recordData['deleted'],
-            $recordData['genre_name']
+            $recordData['genre_name'],
+            $recordData['genre_id']
         );
 
         return $record;

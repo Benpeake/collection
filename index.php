@@ -65,11 +65,16 @@ if (isset($_POST['remove'])) {
     }
 }
 
-//handle update record request P1
+//handle update record request P1 - send user to form and populate it accordingly 
 if (isset($_POST['update'])){
+   $currentRecord = $recordModel->getRecord($_POST['recordID']);
 
-    
-
+   $newAlbumName = $currentRecord->album_name;
+   $newArtistName = $currentRecord->artist_name;
+   $newReleaseYear = $currentRecord->release_year;
+   $newGenre = $currentRecord->genre_id;
+   $newScore = $currentRecord->score;
+   $newImg = $currentRecord->img;
 }
 
 ?>
