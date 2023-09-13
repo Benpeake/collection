@@ -1,7 +1,7 @@
 <?php
 use PHPUnit\Framework\TestCase;
 
-require_once 'index.php';
+require_once 'src/displayAllRecordsFunction.php';
 
 class DisplayAllRecordsTest extends TestCase
 {

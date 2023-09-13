@@ -4,12 +4,15 @@ use Collection\GenresModel;
 use Collection\RecordsModel;
 
 require_once 'vendor/autoload.php';
+require_once 'src/displayAllGenresFunction.php';
+require_once 'src/generateFormSubmitErrorsFunction.php';
+require_once 'src/DisplayAllRecordsFunction.php';
 
 //connect and format db
 $db = new PDO('mysql:host=db; dbname=collection', 'root', 'password');
 $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
-//create record model
+//create record models
 $recordModel = new RecordsModel($db);
 $genresModel = new GenresModel($db);
 
@@ -22,42 +25,6 @@ $genres = $genresModel->getAllGenres();
 // Susccess message 
 $successMessage = 'Record added to collection :)';
 
-//display records function
-function displayAllRecords(array $records): string
-{
-    $htmlOutput = '';
-
-    foreach ($records as $record) {
-        $htmlOutput .=
-            "<div class='albumContainer'>
-            <img src='$record->img' alt='$record->album_name' width='300' height='300' >
-            <div class='albumStats'>
-                <p class='smallCopy'><strong>Album:</strong> $record->album_name</p>
-                <p class='smallCopy'><strong>Artist:</strong> $record->artist_name</p>
-                <p class='smallCopy'><strong>Year of release:</strong> $record->release_year</p>
-                <div class='genre-input'><p class='smallCopy'><strong>Genre:</strong> $record->genre_name</p><div class='dot $record->genre_name'></div></div>
-                <p class='smallCopy'><strong>Score:</strong> $record->score/10</p>
-            </div>
-        </div>";
-    }
-
-    return $htmlOutput;
-}
-
-//display genres function
-function displayAllGenres(array $genres): string
-{
-    $htmlOutput = '';
-
-    foreach ($genres as $genre) {
-        $htmlOutput .=
-            "<option value={$genre['id']}>{$genre['name']}</option>";
-    }
-
-    return  $htmlOutput;
-}
-
-
 // Handle add-record input
 $newAlbumName = $_POST['newAlbumName'] ?? false;
 $newArtistName = $_POST['newArtistName'] ?? false;
@@ -66,42 +33,10 @@ $newGenre = $_POST['newGenre'] ?? false;
 $newScore = $_POST['newScore'] ?? false;
 $newImg = $_POST['newImg'] ?? false;
 
-//Generate form submit errors function 
-function generateFormSubmitErrors(
-    ?string $newAlbumName,
-    ?string $newArtistName,
-    ?string $newReleaseYear,
-    ?string $newGenre,
-    ?string $newScore,
-    ?string $newImg
-): array {
-    $errors = [];
-
-    if (empty($newAlbumName)) {
-        $errors['albumName'] = 'Album name is required';
-    }
-    if (empty($newArtistName)) {
-        $errors['artistName'] = 'Artist name is required';
-    }
-    if (empty($newReleaseYear) || !is_numeric($newReleaseYear) || strlen((string)$newReleaseYear) != 4) {
-        $errors['releaseYear'] = 'Invalid release year';
-    }
-    if ($newGenre === 0 || empty($newGenre)) {
-        $errors['genre'] = 'Music genre is required';
-    }
-    if (empty($newScore) || !is_numeric($newScore) || $newScore < 1 || $newScore > 10) {
-        $errors['score'] = 'Number between 1 and 10';
-    }
-    if (empty($newImg) || !preg_match('/\bhttps?:\/\/\S+\.(jpg)\b/i', $newImg)) {
-        $errors['img'] = 'Image link is required';
-    }
-
-    return $errors;
-}
 
 //on new record submit...
 if (isset($_POST['newRecord'])) {
-    //generate errros function 
+
     $newRecordErrors = generateFormSubmitErrors(
         $newAlbumName,
         $newArtistName,

@@ -1,20 +1,22 @@
 <?php
 use PHPUnit\Framework\TestCase;
 
-require_once 'index.php';
+require_once 'src/displayAllGenresFunction.php';
 
-class DisplayAllRecordsTest extends TestCase
+class DisplayAllGenresTest extends TestCase
 {
     public function test_success_displayAllGenres()
     {
         //inputs
         $genres = [
+            [
             'id' => 1,
-            `name` => `genre1`
-            ];
+            'name' => 'genre1'
+            ]
+        ];
 
         //expected
-        $expected = "<option value='1'>genre1</option>";
+        $expected = "<option value=1>genre1</option>";
 
         //result
         $result = displayAllGenres($genres);
@@ -24,5 +26,3 @@ class DisplayAllRecordsTest extends TestCase
     }
 
 }
-
-?>

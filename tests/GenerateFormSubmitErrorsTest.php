@@ -1,9 +1,9 @@
 <?php
 use PHPUnit\Framework\TestCase;
 
-require_once 'index.php';
+require_once 'src/generateFormSubmitErrorsFunction.php';
 
-class DisplayAllRecordsTest extends TestCase
+class GenerateFormSubmitErrorsTest extends TestCase
 {
     public function test_success_GenerateFormSubmitErrors()
     {
