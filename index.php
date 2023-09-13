@@ -58,7 +58,7 @@ if (isset($_POST['newRecord'])) {
 
 //handle remove record request
 if (isset($_POST['remove'])) {
-    $selectedRecordID = $_POST['userID'];
+    $selectedRecordID = $_POST['recordID'];
     $recordModel->removeRecord($selectedRecordID);
     header('Location: index.php');
 }

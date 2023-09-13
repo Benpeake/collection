@@ -34,7 +34,7 @@ class DisplayAllRecordsTest extends TestCase
                 <div class='buttonContainer'>
                     <form method='POST'>
                         <input type='submit' value='Remove X' name='remove' class='removeButton' />
-                        <input type='hidden' name='userID' value='1' />
+                        <input type='hidden' name='recordID' value='1' />
                     </form>
                 </div>
             </div>

@@ -17,7 +17,7 @@ function displayAllRecords(array $records): string
                 <div class='buttonContainer'>
                     <form method='POST'>
                         <input type='submit' value='Remove X' name='remove' class='removeButton' />
-                        <input type='hidden' name='userID' value='$record->id' />
+                        <input type='hidden' name='recordID' value='$record->id' />
                     </form>
                 </div>
             </div>
