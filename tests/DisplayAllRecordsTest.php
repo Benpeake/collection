@@ -12,6 +12,7 @@ class DisplayAllRecordsTest extends TestCase
         //inputs
         $records = [
             (object)[
+                'id' => '1',
                 'album_name' => 'Album 1',
                 'artist_name' => 'Artist 1',
                 'release_year' => 2001,
@@ -30,6 +31,12 @@ class DisplayAllRecordsTest extends TestCase
                 <p class='smallCopy'><strong>Year of release:</strong> 2001</p>
                 <div class='genre-input'><p class='smallCopy'><strong>Genre:</strong> Rock</p><div class='dot Rock'></div></div>
                 <p class='smallCopy'><strong>Score:</strong> 1/10</p>
+                <div class='buttonContainer'>
+                    <form method='POST'>
+                        <input type='submit' value='Remove X' name='remove' class='removeButton' />
+                        <input type='hidden' name='userID' value='1' />
+                    </form>
+                </div>
             </div>
         </div>";
 

@@ -1,6 +1,5 @@
 <?php
 
-//display records function
 function displayAllRecords(array $records): string
 {
     $htmlOutput = '';
@@ -15,6 +14,12 @@ function displayAllRecords(array $records): string
                 <p class='smallCopy'><strong>Year of release:</strong> $record->release_year</p>
                 <div class='genre-input'><p class='smallCopy'><strong>Genre:</strong> $record->genre_name</p><div class='dot $record->genre_name'></div></div>
                 <p class='smallCopy'><strong>Score:</strong> $record->score/10</p>
+                <div class='buttonContainer'>
+                    <form method='POST'>
+                        <input type='submit' value='Remove X' name='remove' class='removeButton' />
+                        <input type='hidden' name='userID' value='$record->id' />
+                    </form>
+                </div>
             </div>
         </div>";
     }

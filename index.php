@@ -55,6 +55,14 @@ if (isset($_POST['newRecord'])) {
         unset($_GET['success']);
     }
 }
+
+//handle remove record request
+if (isset($_POST['remove'])) {
+    $selectedRecordID = $_POST['userID'];
+    $recordModel->removeRecord($selectedRecordID);
+    header('Location: index.php');
+}
+
 ?>
 
 <!DOCTYPE html>
