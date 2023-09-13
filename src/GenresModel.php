@@ -21,9 +21,8 @@ class GenresModel
 
         $query->execute();
 
-        $genres= $query->fetchAll();
+        $genres = $query->fetchAll();
 
         return $genres;
     }
-
 }

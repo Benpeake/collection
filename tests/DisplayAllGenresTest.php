@@ -1,4 +1,5 @@
 <?php
+
 use PHPUnit\Framework\TestCase;
 
 require_once 'src/displayAllGenresFunction.php';
@@ -10,8 +11,8 @@ class DisplayAllGenresTest extends TestCase
         //inputs
         $genres = [
             [
-            'id' => 1,
-            'name' => 'genre1'
+                'id' => 1,
+                'name' => 'genre1'
             ]
         ];
 
@@ -24,5 +25,4 @@ class DisplayAllGenresTest extends TestCase
         //comparing
         $this->assertStringContainsString($expected, $result);
     }
-
 }

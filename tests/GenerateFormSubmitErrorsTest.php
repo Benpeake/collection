@@ -1,4 +1,5 @@
 <?php
+
 use PHPUnit\Framework\TestCase;
 
 require_once 'src/generateFormSubmitErrorsFunction.php';
@@ -12,7 +13,7 @@ class GenerateFormSubmitErrorsTest extends TestCase
         $expected = [];
 
         //result
-            $result = generateFormSubmitErrors(
+        $result = generateFormSubmitErrors(
             'Album name',
             'Artist name',
             '2020',
@@ -24,5 +25,4 @@ class GenerateFormSubmitErrorsTest extends TestCase
         //comparing
         $this->assertEquals($expected, $result);
     }
-
 }

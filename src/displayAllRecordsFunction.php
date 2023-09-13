@@ -21,5 +21,3 @@ function displayAllRecords(array $records): string
 
     return $htmlOutput;
 }
-
-?>

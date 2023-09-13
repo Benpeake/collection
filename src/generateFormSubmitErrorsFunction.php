@@ -32,5 +32,3 @@ function generateFormSubmitErrors(
 
     return $errors;
 }
-
-?>
