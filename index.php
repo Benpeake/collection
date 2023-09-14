@@ -117,9 +117,9 @@ if (isset($_POST['addRecordForm'])) {
 
 // Either show all products or filtered products...
 if (isset($_GET['selectGenre'])) {
-    $allRecords = $recordModel->getAllRecords($genreFilterID);
+    $allRecords = $recordModel->getAllRecords(0, $genreFilterID);
 } else {
-    $allRecords = $recordModel->getAllRecords();
+    $allRecords = $recordModel->getAllRecords(0);
 }
 
 ?>
@@ -291,6 +291,8 @@ if (isset($_GET['selectGenre'])) {
                 ?>
             </select>
             <label for='selectGenre'>Filter by genre</label>
+        </form>
+        <!-- text filter here -->
     </div>
     <!-- Filter records -->
     <!-- record display -->

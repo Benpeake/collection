@@ -33,9 +33,9 @@ if (isset($_POST['return'])) {
 
 // Either show all products or filtered products...
 if (isset($_POST['selectGenre'])) {
-    $allRecords = $recordModel->getAllArchivedRecords($genreFilterID);
+    $allRecords = $recordModel->getAllRecords(1, $genreFilterID);
 } else {
-    $allRecords = $recordModel->getAllArchivedRecords();
+    $allRecords = $recordModel->getAllRecords(1);
 }
 
 ?>
