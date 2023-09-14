@@ -5,7 +5,6 @@ use Collection\RecordsModel;
 
 require_once 'vendor/autoload.php';
 require_once 'src/displayAllGenresFunction.php';
-require_once 'src/generateFormSubmitErrorsFunction.php';
 require_once 'src/dispayAllArchivedRecordsFunction.php';
 
 //connect and format db
@@ -16,15 +15,8 @@ $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 $recordModel = new RecordsModel($db);
 $genresModel = new GenresModel($db);
 
-// get all products
-$allRecords = $recordModel->getAllArchivedRecords();
-
 // get all genres
 $genres = $genresModel->getAllGenres();
-
-// Susccess messages
-$successAddMessage = 'Record added to collection :)';
-$successUpdateMessage = 'Record was updated :)';
 
 // Handle user input
 $CurrentrecordId  = $_POST['recordIDUpdate'] ?? false;
@@ -39,9 +31,11 @@ if (isset($_POST['return'])) {
     }
 }
 
-//handle genre filter
+// Either show all products or filtered products...
 if (isset($_POST['selectGenre'])) {
     $allRecords = $recordModel->getAllArchivedRecords($genreFilterID);
+} else {
+    $allRecords = $recordModel->getAllArchivedRecords();
 }
 
 ?>

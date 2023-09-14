@@ -23,7 +23,7 @@ $genres = $genresModel->getAllGenres();
 $successAddMessage = 'Record added to collection :)';
 $successUpdateMessage = 'Record was updated :)';
 
-// Handle record form input
+// Handle user input
 $newAlbumName = $_POST['newAlbumName'] ?? false;
 $newArtistName = $_POST['newArtistName'] ?? false;
 $newReleaseYear = $_POST['newReleaseYear'] ?? false;

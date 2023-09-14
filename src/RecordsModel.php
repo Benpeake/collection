@@ -13,7 +13,7 @@ class RecordsModel
         $this->db = $db;
     }
 
-    //select all records
+    //Get all current records
     public function getAllRecords(int|null $genreID = null): array|false
     {
         if ($genreID == null || $genreID == 0) {
