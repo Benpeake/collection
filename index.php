@@ -104,7 +104,7 @@ if (isset($_POST['updateRecord'])) {
     if (empty($newRecordErrors)) {
         $recordModel->updateRecord($newAlbumName, $newArtistName, $newReleaseYear, $newGenre, $newScore, $newImg, $CurrentrecordId);
         $displayUpdateForm = false;
-        header('Location: updaterecord.php');
+        header("Location: index.php?updated=1");
     } else if (!empty($newRecordErrors)) {
         $displayUpdateForm = true;
         unset($_GET['success']);
