@@ -17,7 +17,6 @@ $recordModel = new RecordsModel($db);
 $genresModel = new GenresModel($db);
 
 // get all products
-// HOW DO I APPLY CONDIITON TO THIS?
 $allRecords = $recordModel->getAllRecords();
 
 // get all genres
@@ -35,6 +34,7 @@ $newGenre = $_POST['newGenre'] ?? false;
 $newScore = $_POST['newScore'] ?? false;
 $newImg = $_POST['newImg'] ?? false;
 $CurrentrecordId  = $_POST['recordIDUpdate'] ?? false;
+$genreFilterID = $_POST['selectGenre'] ?? null;
 
 //on new record submit...
 if (isset($_POST['newRecord'])) {
@@ -117,6 +117,11 @@ if (isset($_POST['addRecordForm'])) {
     $displayUpdateForm = false;
     unset($_GET['success']);
     unset($_GET['updated']);
+}
+
+//handle genre filter
+if (isset($_POST['selectGenre'])) {
+    $allRecords = $recordModel->getAllRecords($genreFilterID);
 }
 
 ?>
@@ -267,7 +272,7 @@ if (isset($_POST['addRecordForm'])) {
                     <?php
                     if ($displayUpdateForm) {
                         echo "<input class='button' type='submit' value='Update record' name='updateRecord' />";
-                        echo " <input href='#addRecord' type='hidden' name='recordIDUpdate' value='$CurrentrecordId' />"; // NEED TO FULLY UNDERSTAND THIS
+                        echo " <input href='#addRecord' type='hidden' name='recordIDUpdate' value='$CurrentrecordId' />";
                     } else {
                         echo "<input class='button' type='submit' value='Add record' name='newRecord' />";
                     }
@@ -279,20 +284,25 @@ if (isset($_POST['addRecordForm'])) {
     <!-- add record form -->
     <!-- Filter records -->
     <div class='filterContainer'>
-        <form method="POST">
-        <select class='filter' name='selectGenre' id='selectGenre'>
-            <option value=0>Select...</option>
-            <?php
-            echo displayAllGenres($genres);
-            ?>
-        </select>
-        <label for='selectGenre'>Filter by genre</label>
+        <form method="POST" id='filterForm'>
+            <select class='filter' name='selectGenre' id='selectGenre'>
+                <option>Select...</option>
+                <?php
+                echo displayAllGenres($genres);
+                ?>
+            </select>
+            <label for='selectGenre'>Filter by genre</label>
     </div>
     <!-- Filter records -->
     <!-- record display -->
     <div class='flexConatiner'>
         <?php
-        echo displayAllRecords($allRecords)
+        if ($allRecords == false) {
+            $selectedGenre = $genresModel->getGenreByID($genreFilterID);
+            echo "<p class='mediumCopy'>No $selectedGenre->name records in collection</p>";
+        } else {
+            echo displayAllRecords($allRecords);
+        }
         ?>
     </div>
     <!-- record display -->

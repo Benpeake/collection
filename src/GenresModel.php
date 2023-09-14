@@ -25,4 +25,27 @@ class GenresModel
 
         return $genres;
     }
+
+    //get genre by genreID
+    public function getGenreByID(int $id)
+    {
+        $query = $this->db->prepare("SELECT* FROM `genre` WHERE `genre`.`id` = :genreID");
+
+        $query->bindParam('genreID', $id);
+
+        $query->execute();
+
+        $genreData = $query->fetch();
+
+        if (!$id) {
+            return false;
+        }
+
+        $genre = new Genre(
+            $genreData['id'],
+            $genreData['name'],
+        );
+
+        return $genre;
+    }
 }
