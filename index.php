@@ -16,9 +16,6 @@ $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 $recordModel = new RecordsModel($db);
 $genresModel = new GenresModel($db);
 
-// get all products
-$allRecords = $recordModel->getAllRecords();
-
 // get all genres
 $genres = $genresModel->getAllGenres();
 
@@ -34,7 +31,7 @@ $newGenre = $_POST['newGenre'] ?? false;
 $newScore = $_POST['newScore'] ?? false;
 $newImg = $_POST['newImg'] ?? false;
 $CurrentrecordId  = $_POST['recordIDUpdate'] ?? false;
-$genreFilterID = $_POST['selectGenre'] ?? null;
+$genreFilterID = $_GET['selectGenre'] ?? null;
 
 //on new record submit...
 if (isset($_POST['newRecord'])) {
@@ -119,9 +116,11 @@ if (isset($_POST['addRecordForm'])) {
     unset($_GET['updated']);
 }
 
-//handle genre filter
-if (isset($_POST['selectGenre'])) {
+// Either show all products or filtered products...
+if (isset($_GET['selectGenre'])) {
     $allRecords = $recordModel->getAllRecords($genreFilterID);
+} else {
+    $allRecords = $recordModel->getAllRecords();
 }
 
 ?>
@@ -284,7 +283,7 @@ if (isset($_POST['selectGenre'])) {
     <!-- add record form -->
     <!-- Filter records -->
     <div class='filterContainer'>
-        <form method="POST" id='filterForm'>
+        <form method="GET" id='filterForm'>
             <select class='filter' name='selectGenre' id='selectGenre'>
                 <option>Select...</option>
                 <option value='0'>All records</option>

@@ -29,17 +29,18 @@ class GenresModel
     //get genre by genreID
     public function getGenreByID(int $id)
     {
-        $query = $this->db->prepare("SELECT* FROM `genre` WHERE `genre`.`id` = :genreID");
+
+        if (!$id) {
+            return false;
+        }
+
+        $query = $this->db->prepare("SELECT `id`, `name` FROM `genre` WHERE `genre`.`id` = :genreID");
 
         $query->bindParam('genreID', $id);
 
         $query->execute();
 
         $genreData = $query->fetch();
-
-        if (!$id) {
-            return false;
-        }
 
         $genre = new Genre(
             $genreData['id'],

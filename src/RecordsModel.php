@@ -84,6 +84,7 @@ class RecordsModel
         return $allRecords;
     }
 
+
     // Add record
     public function addRecord(
         string $albumName,
