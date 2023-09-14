@@ -12,7 +12,7 @@ require_once 'src/DisplayAllRecordsFunction.php';
 $db = new PDO('mysql:host=db; dbname=collection', 'root', 'password');
 $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
-//create record models
+//create models
 $recordModel = new RecordsModel($db);
 $genresModel = new GenresModel($db);
 
@@ -26,7 +26,7 @@ $genres = $genresModel->getAllGenres();
 $successAddMessage = 'Record added to collection :)';
 $successUpdateMessage = 'Record was updated :)';
 
-// Handle add-record input
+// Handle record form input
 $newAlbumName = $_POST['newAlbumName'] ?? false;
 $newArtistName = $_POST['newArtistName'] ?? false;
 $newReleaseYear = $_POST['newReleaseYear'] ?? false;
@@ -112,8 +112,11 @@ if (isset($_POST['updateRecord'])) {
     }
 }
 
-if(isset($_POST['addRecordForm'])){
+//handle +Record click
+if (isset($_POST['addRecordForm'])) {
     $displayUpdateForm = false;
+    unset($_GET['success']);
+    unset($_GET['updated']);
 }
 
 ?>
@@ -149,7 +152,7 @@ if(isset($_POST['addRecordForm'])){
         <div class='leftNav'>
             <a class='navLink'>MyRecords</a>
         </div>
-        <div class='rightNav'> 
+        <div class='rightNav'>
             <form method="POST"><input href='#addRecord' class='navLink notButton' type='submit' value='+ Record' name='addRecordForm' /></form>
             <!-- <a class='navLink'>Archive</a> -->
         </div>

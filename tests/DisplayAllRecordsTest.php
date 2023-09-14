@@ -12,7 +12,7 @@ class DisplayAllRecordsTest extends TestCase
         //inputs
         $records = [
             (object)[
-                'id' => '1',
+                'id' => 1,
                 'album_name' => 'Album 1',
                 'artist_name' => 'Artist 1',
                 'release_year' => 2001,
@@ -33,9 +33,13 @@ class DisplayAllRecordsTest extends TestCase
                 <p class='smallCopy'><strong>Score:</strong> 1/10</p>
                 <div class='buttonContainer'>
                     <form method='POST'>
-                        <input type='submit' value='Remove X' name='remove' class='removeButton' />
+                        <input type='submit' value='Remove' name='remove' class='removeButton' />
                         <input type='hidden' name='recordID' value='1' />
                     </form>
+                    <form method='POST'>
+                        <input type='submit' value='Update' name='update' class='removeButton' />
+                        <input href='#addRecord' type='hidden' name='recordIDUpdate' value='1' />
+                    </form>                  
                 </div>
             </div>
         </div>";
