@@ -16,13 +16,10 @@ $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 $recordModel = new RecordsModel($db);
 $genresModel = new GenresModel($db);
 
-// get all products
-$allRecords = $recordModel->getAllRecords();
-
 // get all genres
 $genres = $genresModel->getAllGenres();
 
-// Susccess message 
+// Susccess messages
 $successAddMessage = 'Record added to collection :)';
 $successUpdateMessage = 'Record was updated :)';
 
@@ -34,6 +31,7 @@ $newGenre = $_POST['newGenre'] ?? false;
 $newScore = $_POST['newScore'] ?? false;
 $newImg = $_POST['newImg'] ?? false;
 $CurrentrecordId  = $_POST['recordIDUpdate'] ?? false;
+$genreFilterID = $_GET['selectGenre'] ?? null;
 
 //on new record submit...
 if (isset($_POST['newRecord'])) {
@@ -70,7 +68,6 @@ if (isset($_POST['remove'])) {
 $displayUpdateForm = false;
 //handle update record request P1 - send user to form / populate it accordingly / change form appearance 
 if (isset($_POST['update'])) {
-
     unset($_GET['updated']);
     unset($_GET['success']);
 
@@ -117,6 +114,13 @@ if (isset($_POST['addRecordForm'])) {
     $displayUpdateForm = false;
     unset($_GET['success']);
     unset($_GET['updated']);
+}
+
+// Either show all products or filtered products...
+if (isset($_GET['selectGenre'])) {
+    $allRecords = $recordModel->getAllRecords($genreFilterID);
+} else {
+    $allRecords = $recordModel->getAllRecords();
 }
 
 ?>
@@ -267,7 +271,7 @@ if (isset($_POST['addRecordForm'])) {
                     <?php
                     if ($displayUpdateForm) {
                         echo "<input class='button' type='submit' value='Update record' name='updateRecord' />";
-                        echo " <input href='#addRecord' type='hidden' name='recordIDUpdate' value='$CurrentrecordId' />"; // NEED TO FULLY UNDERSTAND THIS
+                        echo " <input href='#addRecord' type='hidden' name='recordIDUpdate' value='$CurrentrecordId' />";
                     } else {
                         echo "<input class='button' type='submit' value='Add record' name='newRecord' />";
                     }
@@ -277,11 +281,28 @@ if (isset($_POST['addRecordForm'])) {
         </form>
     </div>
     <!-- add record form -->
-
+    <!-- Filter records -->
+    <div class='filterContainer'>
+        <form method="GET" id='filterForm'>
+            <select class='filter' name='selectGenre' id='selectGenre'>
+                <option>Select...</option>
+                <option value='0'>All records</option>
+                <?php
+                echo displayAllGenres($genres);
+                ?>
+            </select>
+            <label for='selectGenre'>Filter by genre</label>
+    </div>
+    <!-- Filter records -->
     <!-- record display -->
     <div class='flexConatiner'>
         <?php
-        echo displayAllRecords($allRecords)
+        if ($allRecords == false) {
+            $selectedGenre = $genresModel->getGenreByID($genreFilterID);
+            echo "<p class='mediumCopy'>No $selectedGenre->name records in collection</p>";
+        } else {
+            echo displayAllRecords($allRecords);
+        }
         ?>
     </div>
     <!-- record display -->
