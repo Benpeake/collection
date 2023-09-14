@@ -16,7 +16,7 @@ class RecordsModel
     //select all records
     public function getAllRecords(int|null $genreID = null): array|false
     {
-        if ($genreID == null) {
+        if ($genreID == null || $genreID == 0) {
             $query = $this->db->prepare(
                 "SELECT
             `records`.`id`,

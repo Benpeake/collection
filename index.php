@@ -287,6 +287,7 @@ if (isset($_POST['selectGenre'])) {
         <form method="POST" id='filterForm'>
             <select class='filter' name='selectGenre' id='selectGenre'>
                 <option>Select...</option>
+                <option value='0'>All records</option>
                 <?php
                 echo displayAllGenres($genres);
                 ?>
