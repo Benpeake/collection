@@ -30,27 +30,14 @@ $successUpdateMessage = 'Record was updated :)';
 $CurrentrecordId  = $_POST['recordIDUpdate'] ?? false;
 $genreFilterID = $_POST['selectGenre'] ?? null;
 
-
-//handle remove record request
-// if (isset($_POST['remove'])) {
-//     $selectedRecordID = $_POST['recordID'];
-//     if ($recordModel->removeRecord($selectedRecordID)) {
-//         $recordModel->removeRecord($selectedRecordID);
-//         header('Location: index.php');
-//     }
-// }
-
-// THIS ABOVE FUNCTION WILL ESSENTIALY BE REVERSED 
-
-
-//handle +Record click 
-// if (isset($_POST['addRecordForm'])) {
-//     $displayUpdateForm = false;
-//     unset($_GET['success']);
-//     unset($_GET['updated']);
-// }
-
-// + RECORD NEEDS TO JUST TAKE THE USER BACK TO INDEX? ABOVE
+//handle return record request
+if (isset($_POST['return'])) {
+    $selectedRecordID = $_POST['recordID'];
+    if ($recordModel->returnRecord($selectedRecordID)) {
+        $recordModel->returnRecord($selectedRecordID);
+        header('Location: archive.php');
+    }
+}
 
 //handle genre filter
 if (isset($_POST['selectGenre'])) {
@@ -91,7 +78,7 @@ if (isset($_POST['selectGenre'])) {
             <a href='index.php' class='navLink'>MyRecords</a>
         </div>
         <div class='rightNav'>
-            <form method="POST"><input href='#addRecord' class='navLink notButton' type='submit' value='+ Record' name='addRecordForm' /></form>
+            <a href='index.php' class='navLink'>+ Record</a>
             <a href='archive.php' class='navLink'>Archive</a>
         </div>
     </div>
