@@ -17,12 +17,13 @@ $recordModel = new RecordsModel($db);
 $genresModel = new GenresModel($db);
 
 // get all products
+// HOW DO I APPLY CONDIITON TO THIS?
 $allRecords = $recordModel->getAllRecords();
 
 // get all genres
 $genres = $genresModel->getAllGenres();
 
-// Susccess message 
+// Susccess messages
 $successAddMessage = 'Record added to collection :)';
 $successUpdateMessage = 'Record was updated :)';
 
@@ -70,7 +71,6 @@ if (isset($_POST['remove'])) {
 $displayUpdateForm = false;
 //handle update record request P1 - send user to form / populate it accordingly / change form appearance 
 if (isset($_POST['update'])) {
-
     unset($_GET['updated']);
     unset($_GET['success']);
 
@@ -277,7 +277,18 @@ if (isset($_POST['addRecordForm'])) {
         </form>
     </div>
     <!-- add record form -->
-
+    <!-- Filter records -->
+    <div class='filterContainer'>
+        <form method="POST">
+        <select class='filter' name='selectGenre' id='selectGenre'>
+            <option value=0>Select...</option>
+            <?php
+            echo displayAllGenres($genres);
+            ?>
+        </select>
+        <label for='selectGenre'>Filter by genre</label>
+    </div>
+    <!-- Filter records -->
     <!-- record display -->
     <div class='flexConatiner'>
         <?php

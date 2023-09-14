@@ -14,9 +14,9 @@ class RecordsModel
     }
 
     //select all records
-    public function getAllRecords(): array
-
+    public function getAllRecords(int|null $genreID = null): array|false
     {
+        if($genreID == null){
         $query = $this->db->prepare(
             "SELECT
             `records`.`id`,
@@ -34,6 +34,27 @@ class RecordsModel
             WHERE `records`.`deleted` = 0 
         "
         );
+        } else{
+            $query = $this->db->prepare(   
+            "SELECT
+            `records`.`id`,
+            `records`.`album_name`,
+            `records`.`artist_name`,
+            `records`.`release_year`,
+            `records`.`score`,
+            `records`.`img`,
+            `records`.`deleted`,
+            `records`.`genre_id`,
+            `genre`.`name` AS `genre_name`
+            FROM `records`
+            INNER JOIN `genre`
+            ON `records`.`genre_id` = `genre`.`id`
+            WHERE `records`.`deleted` = 0
+            AND `records`.`genre_id` = :genreID
+        "
+        );
+        $query->bindParam('genreID', $genreID);
+        }
 
         $query->execute();
 
@@ -54,6 +75,10 @@ class RecordsModel
                 $recordData['genre_name'],
                 $recordData['genre_id']
             );
+        }
+
+        if(empty($allRecords)){
+            return false;
         }
 
         return $allRecords;
