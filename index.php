@@ -154,11 +154,11 @@ if (isset($_GET['selectGenre'])) {
     <!-- nav-bar -->
     <div class='navBar'>
         <div class='leftNav'>
-            <a class='navLink'>MyRecords</a>
+            <a href='index.php' class='navLink'>MyRecords</a>
         </div>
         <div class='rightNav'>
             <form method="POST"><input href='#addRecord' class='navLink notButton' type='submit' value='+ Record' name='addRecordForm' /></form>
-            <a href='archive.php'class='navLink'>Archive</a>
+            <a href='archive.php' class='navLink'>Archive</a>
         </div>
     </div>
     <!-- nav-bar -->

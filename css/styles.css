@@ -111,8 +111,35 @@ body{
 /* archived record display */
 .archived{
   background-color: var(--white);
-  opacity: 30%;
+  opacity: 18%;
 }
+
+.archivedContainer{
+  display: flex;
+}
+
+.returnButton{
+  position: absolute;
+  margin-top: 150px;
+  margin-left: 112px;
+  z-index: 1;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 1.6rem;
+  font-weight: 600;
+  border: 3px solid var(--black);
+  background: none;
+  color: var(--black);
+}
+
+.returnButton:hover{
+  cursor: pointer;
+  border: 3px solid var(--green);
+  background: none;
+  color: var(--green);
+}
+/* archived record display */
+
 
 p {
   margin: 5px;

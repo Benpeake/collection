@@ -88,11 +88,11 @@ if (isset($_POST['selectGenre'])) {
     <!-- nav-bar -->
     <div class='navBar'>
         <div class='leftNav'>
-            <a class='navLink'>MyRecords</a>
+            <a href='index.php' class='navLink'>MyRecords</a>
         </div>
         <div class='rightNav'>
             <form method="POST"><input href='#addRecord' class='navLink notButton' type='submit' value='+ Record' name='addRecordForm' /></form>
-            <!-- <a class='navLink'>Archive</a> -->
+            <a href='archive.php' class='navLink'>Archive</a>
         </div>
     </div>
     <!-- nav-bar -->
@@ -114,7 +114,7 @@ if (isset($_POST['selectGenre'])) {
         <?php
         if ($allRecords == false) {
             $selectedGenre = $genresModel->getGenreByID($genreFilterID);
-            echo "<p class='mediumCopy'>No $selectedGenre->name records in collection</p>";
+            echo "<p class='mediumCopy'>No $selectedGenre->name records in archive</p>";
         } else {
             echo  displayAllArchivedRecords($allRecords);
         }
