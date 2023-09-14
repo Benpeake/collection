@@ -158,7 +158,7 @@ if (isset($_GET['selectGenre'])) {
         </div>
         <div class='rightNav'>
             <form method="POST"><input href='#addRecord' class='navLink notButton' type='submit' value='+ Record' name='addRecordForm' /></form>
-            <!-- <a class='navLink'>Archive</a> -->
+            <a href='archive.php'class='navLink'>Archive</a>
         </div>
     </div>
     <!-- nav-bar -->
