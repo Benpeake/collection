@@ -35,7 +35,6 @@ $genreFilterID = $_GET['selectGenre'] ?? null;
 
 //on new record submit...
 if (isset($_POST['newRecord'])) {
-
     $newRecordErrors = generateFormSubmitErrors(
         $newAlbumName,
         $newArtistName,

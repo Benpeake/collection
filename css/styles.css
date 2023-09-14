@@ -339,3 +339,30 @@ input[type=number] {
   margin-top: 10px;
 }
 /* delete button */
+
+@media screen and (max-width: 900px){
+
+  .newRecordForm{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0px 30px;
+  }
+
+}
+
+@media screen and (max-width: 600px){
+
+  .newRecordForm{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0px 30px;
+  }
+
+  .navBar{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: space-between;
+  }
+
+}
