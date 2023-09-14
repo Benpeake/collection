@@ -9,7 +9,8 @@
   --off-white: #D8DAD3;
   --black: #191308;
   --red: #F15156;
-  --green: #00A676 ;
+  --green: #00A676;
+  --dark-grey: #919985;
 }
 
 body{
@@ -44,6 +45,7 @@ body{
   font-weight: 600;
   text-decoration: none;
   color: var(--black);
+  background-color: var(--white);
 }
 
 .navLink:hover{
@@ -51,10 +53,33 @@ body{
   color: var(--black);
 }
 
+.underline{
+  border-bottom: 2px solid var(--white)
+}
+
+.close-button{
+  border: none;
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--dark-grey);
+}
+
+.notButton{
+  padding: 0;
+  margin: 0;
+  border: none;
+}
+
+.notButton:hover{
+  cursor: pointer;
+}
+
+
 .navBar{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   padding: 20px;
   border-bottom: 2px solid #191308;
   position: sticky;
@@ -104,34 +129,46 @@ p {
 
 .Funk{
   background: #2B9720;
+  color: #2B9720;
 }
 
 .Hip-Hop{
-  background: #5603AD;
+  background: #9636FC;
+  color: #9636FC;
 }
 
 .Soul{
   background: #FF7F11;
+  color:#FF7F11;
 }
 
 .Pop{
   background: #F694C1;
+  color: #F694C1;
 }
 
 .Rock{
   background: #F13030;
+  color: #F13030;
 }
 
 .Metal{
-  background: #0E1428;
+  background: #A52753;
+  color: #A52753;
 }
 
 .Jazz{
   background: #232ED1;
+  color: #232ED1;
 }
 
 .Country{
   background: #A57548;
+  color: #A57548;
+}
+
+.noBG{
+  background: var(--black);
 }
 /* genre key style */
 
@@ -247,6 +284,7 @@ input[type=number] {
   font-size: 0.8rem;
   border: none;
   border-radius: 8px;
+  background-color: var(--dark-grey);
 }
 
 .removeButton:hover{

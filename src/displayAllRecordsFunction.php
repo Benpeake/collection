@@ -16,9 +16,13 @@ function displayAllRecords(array $records): string
                 <p class='smallCopy'><strong>Score:</strong> $record->score/10</p>
                 <div class='buttonContainer'>
                     <form method='POST'>
-                        <input type='submit' value='Remove X' name='remove' class='removeButton' />
+                        <input type='submit' value='Remove' name='remove' class='removeButton' />
                         <input type='hidden' name='recordID' value='$record->id' />
                     </form>
+                    <form method='POST'>
+                        <input type='submit' value='Update' name='update' class='removeButton' />
+                        <input href='#addRecord' type='hidden' name='recordIDUpdate' value='$record->id' />
+                    </form>                  
                 </div>
             </div>
         </div>";

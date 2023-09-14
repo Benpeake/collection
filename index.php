@@ -12,7 +12,7 @@ require_once 'src/DisplayAllRecordsFunction.php';
 $db = new PDO('mysql:host=db; dbname=collection', 'root', 'password');
 $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
-//create record models
+//create models
 $recordModel = new RecordsModel($db);
 $genresModel = new GenresModel($db);
 
@@ -23,16 +23,17 @@ $allRecords = $recordModel->getAllRecords();
 $genres = $genresModel->getAllGenres();
 
 // Susccess message 
-$successMessage = 'Record added to collection :)';
+$successAddMessage = 'Record added to collection :)';
+$successUpdateMessage = 'Record was updated :)';
 
-// Handle add-record input
+// Handle record form input
 $newAlbumName = $_POST['newAlbumName'] ?? false;
 $newArtistName = $_POST['newArtistName'] ?? false;
 $newReleaseYear = $_POST['newReleaseYear'] ?? false;
 $newGenre = $_POST['newGenre'] ?? false;
 $newScore = $_POST['newScore'] ?? false;
 $newImg = $_POST['newImg'] ?? false;
-
+$CurrentrecordId  = $_POST['recordIDUpdate'] ?? false;
 
 //on new record submit...
 if (isset($_POST['newRecord'])) {
@@ -53,6 +54,7 @@ if (isset($_POST['newRecord'])) {
         exit();
     } else if (!empty($newRecordErrors)) {
         unset($_GET['success']);
+        unset($_GET['updated']);
     }
 }
 
@@ -63,6 +65,58 @@ if (isset($_POST['remove'])) {
         $recordModel->removeRecord($selectedRecordID);
         header('Location: index.php');
     }
+}
+
+$displayUpdateForm = false;
+//handle update record request P1 - send user to form / populate it accordingly / change form appearance 
+if (isset($_POST['update'])) {
+
+    unset($_GET['updated']);
+    unset($_GET['success']);
+
+    $currentRecord = $recordModel->getRecord($_POST['recordIDUpdate']);
+
+    $newAlbumName = $currentRecord->album_name;
+    $newArtistName = $currentRecord->artist_name;
+    $newReleaseYear = $currentRecord->release_year;
+    $newGenre = $currentRecord->genre_id;
+    $newScore = $currentRecord->score;
+    $newImg = $currentRecord->img;
+    $genreNameForm  = $currentRecord->genre_name;
+    $recordIdForm = $currentRecord->id;
+
+    $displayUpdateForm = true;
+}
+
+//handle update record request P2 - update record logic
+if (isset($_POST['updateRecord'])) {
+
+    $newRecordErrors = generateFormSubmitErrors(
+        $newAlbumName,
+        $newArtistName,
+        $newReleaseYear,
+        $newGenre,
+        $newScore,
+        $newImg
+    );
+
+    // if no errors proceed... if errors display
+    if (empty($newRecordErrors)) {
+        $recordModel->updateRecord($newAlbumName, $newArtistName, $newReleaseYear, $newGenre, $newScore, $newImg, $CurrentrecordId);
+        $displayUpdateForm = false;
+        header("Location: index.php?updated=1");
+    } else if (!empty($newRecordErrors)) {
+        $displayUpdateForm = true;
+        unset($_GET['success']);
+        unset($_GET['updated']);
+    }
+}
+
+//handle +Record click
+if (isset($_POST['addRecordForm'])) {
+    $displayUpdateForm = false;
+    unset($_GET['success']);
+    unset($_GET['updated']);
 }
 
 ?>
@@ -99,7 +153,7 @@ if (isset($_POST['remove'])) {
             <a class='navLink'>MyRecords</a>
         </div>
         <div class='rightNav'>
-            <a class='navLink' href='#addRecord'>+ Record</a>
+            <form method="POST"><input href='#addRecord' class='navLink notButton' type='submit' value='+ Record' name='addRecordForm' /></form>
             <!-- <a class='navLink'>Archive</a> -->
         </div>
     </div>
@@ -107,11 +161,20 @@ if (isset($_POST['remove'])) {
 
     <!-- add record form -->
     <div class='formContainerInfo'>
-        <p class='whiteCopy'>Add record to collection</p>
         <?php
-        if (isset($_GET['success'])) {
-            echo "<p class='successCopy'>$successMessage</p>";
+
+        if ($displayUpdateForm) {
+            echo "<p class='whiteCopy'>Update <span class='underline'>$newAlbumName</span></p>";
+        } else {
+            echo "<p class='whiteCopy'>Add record to collection</p>";
         }
+        if (isset($_GET['success'])) {
+            echo "<p class='successCopy'>$successAddMessage</p>";
+        }
+        if (isset($_GET['updated'])) {
+            echo "<p class='successCopy'>$successUpdateMessage</p>";
+        }
+
         ?>
     </div>
     <div class='formContainer'>
@@ -201,7 +264,14 @@ if (isset($_POST['remove'])) {
             </div>
             <div class='formContainerInfo'>
                 <div class='inputField'>
-                    <input class='button' type='submit' value='Add record' name='newRecord' />
+                    <?php
+                    if ($displayUpdateForm) {
+                        echo "<input class='button' type='submit' value='Update record' name='updateRecord' />";
+                        echo " <input href='#addRecord' type='hidden' name='recordIDUpdate' value='$CurrentrecordId' />"; // NEED TO FULLY UNDERSTAND THIS
+                    } else {
+                        echo "<input class='button' type='submit' value='Add record' name='newRecord' />";
+                    }
+                    ?>
                 </div>
             </div>
         </form>

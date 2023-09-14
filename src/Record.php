@@ -12,6 +12,7 @@ readonly class Record
     public string $img;
     public int $deleted;
     public string $genre_name;
+    public int $genre_id;
 
     public function __construct(
         int $id,
@@ -21,7 +22,8 @@ readonly class Record
         int $score,
         string $img,
         int $deleted,
-        string $genreName
+        string $genreName,
+        int $genre_id
     ) {
         $this->id = $id;
         $this->album_name = $albumName;
@@ -31,5 +33,6 @@ readonly class Record
         $this->img = $img;
         $this->deleted = $deleted;
         $this->genre_name = $genreName;
+        $this->genre_id = $genre_id;
     }
 }
