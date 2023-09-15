@@ -32,6 +32,7 @@ $newScore = $_POST['newScore'] ?? false;
 $newImg = $_POST['newImg'] ?? false;
 $CurrentrecordId  = $_POST['recordIDUpdate'] ?? false;
 $genreFilterID = $_GET['selectGenre'] ?? null;
+$textFilter = $_GET['textFilter'] ?? null;
 
 //on new record submit...
 if (isset($_POST['newRecord'])) {
@@ -114,11 +115,20 @@ if (isset($_POST['addRecordForm'])) {
     unset($_GET['updated']);
 }
 
+
+
 // Either show all products or filtered records...
 if (isset($_GET['selectGenre'])) {
     $allRecords = $recordModel->getAllRecords(0, $genreFilterID);
+    if(isset($_GET['filterTextSubmit'])){
+        $allRecords = $recordModel->getAllRecords(0, $genreFilterID, $textFilter);
+    }
 } else {
     $allRecords = $recordModel->getAllRecords(0);
+    //handle search bar
+if(isset($_GET['filterTextSubmit'])){
+    $allRecords = $recordModel->getAllRecords(0, null, $textFilter);
+}
 }
 
 ?>
@@ -292,7 +302,10 @@ if (isset($_GET['selectGenre'])) {
             <label for='selectGenre'>Filter by genre</label>
         </form>
         <form method="GET" id='textFilterForm'>
-            <input type="text" class="filter" name='textFilter' id='textFilter' placeholder="Search..."/>
+            <div class="searchbar">
+                <input type="text" class="filterText" name='textFilter' id='textFilter' placeholder="Search..."/>
+                <input type="submit" class="filterTextSubmit" name='filterTextSubmit' id='textFilterSubmit' value="Find" />
+            </div>
         </form>
     </div>
     <!-- Filter records -->
