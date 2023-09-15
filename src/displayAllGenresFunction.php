@@ -12,5 +12,3 @@ function displayAllGenres(array $genres): string
 
     return  $htmlOutput;
 }
-
-?>

@@ -7,10 +7,10 @@ require_once 'vendor/autoload.php';
 require_once 'src/displayAllGenresFunction.php';
 require_once 'src/generateFormSubmitErrorsFunction.php';
 require_once 'src/DisplayAllRecordsFunction.php';
+require_once 'src/returnDataBaseFunction.php';
 
 //connect and format db
-$db = new PDO('mysql:host=db; dbname=collection', 'root', 'password');
-$db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+$db = returnDatabase();
 
 //create models
 $recordModel = new RecordsModel($db);
@@ -23,7 +23,7 @@ $genres = $genresModel->getAllGenres();
 $successAddMessage = 'Record added to collection :)';
 $successUpdateMessage = 'Record was updated :)';
 
-// Handle record form input
+// Handle user input
 $newAlbumName = $_POST['newAlbumName'] ?? false;
 $newArtistName = $_POST['newArtistName'] ?? false;
 $newReleaseYear = $_POST['newReleaseYear'] ?? false;
@@ -35,7 +35,6 @@ $genreFilterID = $_GET['selectGenre'] ?? null;
 
 //on new record submit...
 if (isset($_POST['newRecord'])) {
-
     $newRecordErrors = generateFormSubmitErrors(
         $newAlbumName,
         $newArtistName,
@@ -60,7 +59,6 @@ if (isset($_POST['newRecord'])) {
 if (isset($_POST['remove'])) {
     $selectedRecordID = $_POST['recordID'];
     if ($recordModel->removeRecord($selectedRecordID)) {
-        $recordModel->removeRecord($selectedRecordID);
         header('Location: index.php');
     }
 }
@@ -109,18 +107,18 @@ if (isset($_POST['updateRecord'])) {
     }
 }
 
-//handle +Record click
+//handle +Record Nav click
 if (isset($_POST['addRecordForm'])) {
     $displayUpdateForm = false;
     unset($_GET['success']);
     unset($_GET['updated']);
 }
 
-// Either show all products or filtered products...
+// Either show all products or filtered records...
 if (isset($_GET['selectGenre'])) {
-    $allRecords = $recordModel->getAllRecords($genreFilterID);
+    $allRecords = $recordModel->getAllRecords(0, $genreFilterID);
 } else {
-    $allRecords = $recordModel->getAllRecords();
+    $allRecords = $recordModel->getAllRecords(0);
 }
 
 ?>
@@ -154,11 +152,11 @@ if (isset($_GET['selectGenre'])) {
     <!-- nav-bar -->
     <div class='navBar'>
         <div class='leftNav'>
-            <a class='navLink'>MyRecords</a>
+            <a href='index.php' class='navLink'>MyRecords</a>
         </div>
         <div class='rightNav'>
             <form method="POST"><input href='#addRecord' class='navLink notButton' type='submit' value='+ Record' name='addRecordForm' /></form>
-            <!-- <a class='navLink'>Archive</a> -->
+            <a href='archive.php' class='navLink'>Archive</a>
         </div>
     </div>
     <!-- nav-bar -->
@@ -292,6 +290,10 @@ if (isset($_GET['selectGenre'])) {
                 ?>
             </select>
             <label for='selectGenre'>Filter by genre</label>
+        </form>
+        <!-- <form method="GET" id='textFilterForm'>
+            <input type="text" class="filter" name='textFilter' id='textFilter' placeholder="Search..."/>
+        </form> -->
     </div>
     <!-- Filter records -->
     <!-- record display -->

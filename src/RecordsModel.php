@@ -13,8 +13,8 @@ class RecordsModel
         $this->db = $db;
     }
 
-    //select all records
-    public function getAllRecords(int|null $genreID = null): array|false
+    //Get all required records based on conditional requirments 
+    public function getAllRecords(int $deleteID, int|null $genreID = null): array|false
     {
         if ($genreID == null || $genreID == 0) {
             $query = $this->db->prepare(
@@ -31,9 +31,10 @@ class RecordsModel
             FROM `records`
             INNER JOIN `genre`
             ON `records`.`genre_id` = `genre`.`id`
-            WHERE `records`.`deleted` = 0 
+            WHERE `records`.`deleted` = :deleteID
         "
             );
+            $query->bindParam('deleteID', $deleteID);
         } else {
             $query = $this->db->prepare(
                 "SELECT
@@ -49,11 +50,16 @@ class RecordsModel
             FROM `records`
             INNER JOIN `genre`
             ON `records`.`genre_id` = `genre`.`id`
-            WHERE `records`.`deleted` = 0
+            WHERE `records`.`deleted` = :deleteID
             AND `records`.`genre_id` = :genreID
         "
             );
             $query->bindParam('genreID', $genreID);
+            $query->bindParam('deleteID', $deleteID);
+        }
+
+        if ($deleteID != 1 && $deleteID != 0) {
+            return false;
         }
 
         $query->execute();
@@ -83,7 +89,6 @@ class RecordsModel
 
         return $allRecords;
     }
-
 
     // Add record
     public function addRecord(
@@ -124,6 +129,18 @@ class RecordsModel
             return false;
         }
 
+        return true;
+    }
+
+    // return a record by ID
+    public function returnRecord(int $id): bool
+    {
+        $query = $this->db->prepare("UPDATE `records` SET `deleted` = 0 WHERE `id` = :idNum LIMIT 1");
+
+        $query->bindParam('idNum', $id);
+
+        $query->execute();
+        
         return true;
     }
 
