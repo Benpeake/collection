@@ -27,7 +27,7 @@ class GenresModel
     }
 
     //get genre by genreID
-    public function getGenreByID(int $id)
+    public function getGenreByID(int|null $id)
     {
 
         if (!$id) {

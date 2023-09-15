@@ -6,10 +6,10 @@ use Collection\RecordsModel;
 require_once 'vendor/autoload.php';
 require_once 'src/displayAllGenresFunction.php';
 require_once 'src/dispayAllArchivedRecordsFunction.php';
+require_once 'src/returnDataBaseFunction.php';
 
 //connect and format db
-$db = new PDO('mysql:host=db; dbname=collection', 'root', 'password');
-$db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+$db = returnDatabase();
 
 //create models
 $recordModel = new RecordsModel($db);
@@ -26,7 +26,6 @@ $genreFilterID = $_POST['selectGenre'] ?? null;
 if (isset($_POST['return'])) {
     $selectedRecordID = $_POST['recordID'];
     if ($recordModel->returnRecord($selectedRecordID)) {
-        $recordModel->returnRecord($selectedRecordID);
         header('Location: archive.php');
     }
 }
@@ -94,8 +93,12 @@ if (isset($_POST['selectGenre'])) {
     <div class='flexConatiner'>
         <?php
         if ($allRecords == false) {
-            $selectedGenre = $genresModel->getGenreByID($genreFilterID);
-            echo "<p class='mediumCopy'>No $selectedGenre->name records in archive</p>";
+            if ($genreFilterID == null || !$genreFilterID) {
+                echo "<p class='mediumCopy'>No records currently in archive</p>";
+            } else {
+                $selectedGenre = $genresModel->getGenreByID($genreFilterID);
+                echo "<p class='mediumCopy'>No $selectedGenre->name records in archive</p>";
+            }
         } else {
             echo  displayAllArchivedRecords($allRecords);
         }

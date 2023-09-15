@@ -140,11 +140,7 @@ class RecordsModel
         $query->bindParam('idNum', $id);
 
         $query->execute();
-
-        if (!$id) {
-            return false;
-        }
-
+        
         return true;
     }
 

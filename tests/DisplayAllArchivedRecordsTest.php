@@ -1,25 +1,31 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
+use Collection\Record;
 
 require_once 'src/dispayAllArchivedRecordsFunction.php';
+require_once 'src/Record.php';
 
 class DisplayAllArchivedRecordsTest extends TestCase
 {
     public function test_success_displayAllRecords()
     {
+        // record instance 
+        $record = new Record(
+            1,
+            'Album 1',
+            'Artist 1',
+            2001,
+            1,
+            'album1.jpg',
+            0,
+            'Rock',
+            1
+        );
+
         //inputs
-        $records = [
-            (object)[
-                'id' => 1,
-                'album_name' => 'Album 1',
-                'artist_name' => 'Artist 1',
-                'release_year' => 2001,
-                'genre_name' => 'Rock',
-                'score' => 1,
-                'img' => 'album1.jpg'
-            ]
-        ];
+        $records = [$record];
+
         //expected
         $expected =
             "<div class='archivedContainer'>

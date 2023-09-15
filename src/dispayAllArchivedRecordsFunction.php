@@ -2,7 +2,12 @@
 
 function displayAllArchivedRecords(array $records): string
 {
+
     $htmlOutput = '';
+
+    if (empty($records)) {
+        $htmlOutput = "<p class='mediumCopy'>No records currently in archive</p>";
+    }
 
     foreach ($records as $record) {
         $htmlOutput .=

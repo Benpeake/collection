@@ -7,10 +7,10 @@ require_once 'vendor/autoload.php';
 require_once 'src/displayAllGenresFunction.php';
 require_once 'src/generateFormSubmitErrorsFunction.php';
 require_once 'src/DisplayAllRecordsFunction.php';
+require_once 'src/returnDataBaseFunction.php';
 
 //connect and format db
-$db = new PDO('mysql:host=db; dbname=collection', 'root', 'password');
-$db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+$db = returnDatabase();
 
 //create models
 $recordModel = new RecordsModel($db);
@@ -59,7 +59,6 @@ if (isset($_POST['newRecord'])) {
 if (isset($_POST['remove'])) {
     $selectedRecordID = $_POST['recordID'];
     if ($recordModel->removeRecord($selectedRecordID)) {
-        $recordModel->removeRecord($selectedRecordID);
         header('Location: index.php');
     }
 }
@@ -291,8 +290,8 @@ if (isset($_GET['selectGenre'])) {
                 ?>
             </select>
             <label for='selectGenre'>Filter by genre</label>
-        <!-- </form>
-        <form method="GET" id='textFilterForm'>
+        </form>
+        <!-- <form method="GET" id='textFilterForm'>
             <input type="text" class="filter" name='textFilter' id='textFilter' placeholder="Search..."/>
         </form> -->
     </div>
