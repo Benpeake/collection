@@ -13,7 +13,7 @@ class RecordsModel
         $this->db = $db;
     }
 
-    //Get all current records
+    //Get all required records based on conditional requirments 
     public function getAllRecords(int $deleteID, int|null $genreID = null): array|false
     {
         if ($genreID == null || $genreID == 0) {
@@ -56,6 +56,10 @@ class RecordsModel
             );
             $query->bindParam('genreID', $genreID);
             $query->bindParam('deleteID', $deleteID);
+        }
+
+        if ($deleteID != 1 && $deleteID != 0) {
+            return false;
         }
 
         $query->execute();

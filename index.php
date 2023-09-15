@@ -108,14 +108,14 @@ if (isset($_POST['updateRecord'])) {
     }
 }
 
-//handle +Record click
+//handle +Record Nav click
 if (isset($_POST['addRecordForm'])) {
     $displayUpdateForm = false;
     unset($_GET['success']);
     unset($_GET['updated']);
 }
 
-// Either show all products or filtered products...
+// Either show all products or filtered records...
 if (isset($_GET['selectGenre'])) {
     $allRecords = $recordModel->getAllRecords(0, $genreFilterID);
 } else {
@@ -291,8 +291,10 @@ if (isset($_GET['selectGenre'])) {
                 ?>
             </select>
             <label for='selectGenre'>Filter by genre</label>
-        </form>
-        <!-- text filter here -->
+        <!-- </form>
+        <form method="GET" id='textFilterForm'>
+            <input type="text" class="filter" name='textFilter' id='textFilter' placeholder="Search..."/>
+        </form> -->
     </div>
     <!-- Filter records -->
     <!-- record display -->

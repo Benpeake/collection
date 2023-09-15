@@ -111,7 +111,7 @@ body{
 /* archived record display */
 .archived{
   background-color: var(--white);
-  opacity: 18%;
+  opacity: 22%;
 }
 
 .archivedContainer{
@@ -260,6 +260,21 @@ input{
   border: 2px solid var(--black);
   color: var(--black);
   margin: 40px 10px 0 20px;
+}
+
+#textFilter{
+  margin-right: 20px;
+}
+
+.filterContainer{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+::placeholder {
+  color: var(--black);
+  opacity: 100%;
 }
 
 input:focus{
