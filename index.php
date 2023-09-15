@@ -291,9 +291,9 @@ if (isset($_GET['selectGenre'])) {
             </select>
             <label for='selectGenre'>Filter by genre</label>
         </form>
-        <!-- <form method="GET" id='textFilterForm'>
+        <form method="GET" id='textFilterForm'>
             <input type="text" class="filter" name='textFilter' id='textFilter' placeholder="Search..."/>
-        </form> -->
+        </form>
     </div>
     <!-- Filter records -->
     <!-- record display -->
