@@ -280,7 +280,8 @@ if (isset($_GET['selectGenre'])) {
     </div>
     <!-- add record form -->
     <!-- Filter records -->
-    <div class='filterContainer'>
+<!-- Filter records -->
+<div class='filterContainer'>
         <form method="GET" id='filterForm'>
             <select class='filter' name='selectGenre' id='selectGenre'>
                 <option>Select...</option>
@@ -291,9 +292,12 @@ if (isset($_GET['selectGenre'])) {
             </select>
             <label for='selectGenre'>Filter by genre</label>
         </form>
-        <!-- <form method="GET" id='textFilterForm'>
-            <input type="text" class="filter" name='textFilter' id='textFilter' placeholder="Search..."/>
-        </form> -->
+        <form method="GET" id='textFilterForm'>
+            <div class="searchbar">
+                <input type="text" class="filterText" name='textFilter' id='textFilter' placeholder="Search..." />
+                <input type="submit" class="filterTextSubmit" name='filterTextSubmit' id='textFilterSubmit' value="Find" />
+            </div>
+        </form>
     </div>
     <!-- Filter records -->
     <!-- record display -->
