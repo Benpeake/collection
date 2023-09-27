@@ -255,6 +255,10 @@ input{
   padding: 5px 10px;
 }
 
+.form-input{
+  width: 271px;
+}
+
 .filter{
   background-color: var(--white);
   border: 2px solid var(--black);
@@ -292,7 +296,7 @@ input{
 }
 
 #textFilter{
-  margin-right: 20px;
+  margin: 0 20px;
 }
 
 .filterContainer{
@@ -390,6 +394,10 @@ input[type=number] {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 0px 30px;
+  }
+
+  .filterContainer{
+    flex-direction: column;
   }
 
 }

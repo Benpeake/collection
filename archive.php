@@ -46,7 +46,7 @@ if (isset($_POST['selectGenre'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Template</title>
+    <title>Record Collection</title>
 
     <meta name="description" content="Template HTML file">
     <meta name="author" content="iO Academy">

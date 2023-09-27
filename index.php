@@ -140,7 +140,7 @@ if (isset($_GET['selectGenre'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Template</title>
+    <title>Record Collection</title>
 
     <meta name="description" content="Template HTML file">
     <meta name="author" content="iO Academy">
@@ -194,7 +194,7 @@ if (isset($_GET['selectGenre'])) {
             <div class='inputField'>
                 <label for='newAlbumName'>Album name:</label>
                 <div>
-                    <input type='text' value="<?php if ($newAlbumName) echo $newAlbumName; ?>" name='newAlbumName' id='newAlbumName' />
+                    <input class="form-input" type='text' value="<?php if ($newAlbumName) echo $newAlbumName; ?>" name='newAlbumName' id='newAlbumName' />
                     <?php
                     if (isset($newRecordErrors['albumName'])) {
                         echo "<p class='errorMessage'>{$newRecordErrors['albumName']}</p>";
@@ -207,7 +207,7 @@ if (isset($_GET['selectGenre'])) {
             <div class='inputField'>
                 <label for='newArtistName'>Artist name:</label>
                 <div>
-                    <input type='text' value="<?php if ($newArtistName) echo $newArtistName; ?>" name='newArtistName' id='newArtistName' />
+                    <input class="form-input" type='text' value="<?php if ($newArtistName) echo $newArtistName; ?>" name='newArtistName' id='newArtistName' />
                     <?php
                     if (isset($newRecordErrors['artistName'])) {
                         echo "<p class='errorMessage'>{$newRecordErrors['artistName']}</p>";
@@ -220,7 +220,7 @@ if (isset($_GET['selectGenre'])) {
             <div class='inputField'>
                 <label for='newReleaseYear'>Release year:</label>
                 <div>
-                    <input type='number' value="<?php if ($newReleaseYear) echo $newReleaseYear; ?>" name='newReleaseYear' id='newReleaseYear' min="1000" max="2023" />
+                    <input class="form-input" type='number' value="<?php if ($newReleaseYear) echo $newReleaseYear; ?>" name='newReleaseYear' id='newReleaseYear' min="1000" max="2023" />
                     <?php
                     if (isset($newRecordErrors['releaseYear'])) {
                         echo "<p class='errorMessage'>{$newRecordErrors['releaseYear']}</p>";
@@ -251,7 +251,7 @@ if (isset($_GET['selectGenre'])) {
             <div class='inputField'>
                 <label for='newScore'>Score (1-10):</label>
                 <div>
-                    <input type='number' value="<?php if ($newScore) echo $newScore; ?>" name='newScore' id='newScore' min='1' max='10' />
+                    <input class="form-input" type='number' value="<?php if ($newScore) echo $newScore; ?>" name='newScore' id='newScore' min='1' max='10' />
                     <?php
                     if (isset($newRecordErrors['score'])) {
                         echo "<p class='errorMessage'>{$newRecordErrors['score']}</p>";
@@ -264,7 +264,7 @@ if (isset($_GET['selectGenre'])) {
             <div class='inputField'>
                 <label for='newImg'>Image (link):</label>
                 <div>
-                    <input type='text' value="<?php if ($newImg) echo $newImg; ?>" name='newImg' id='newImg' />
+                    <input class="form-input" type='text' value="<?php if ($newImg) echo $newImg; ?>" name='newImg' id='newImg' />
                     <?php
                     if (isset($newRecordErrors['img'])) {
                         echo "<p class='errorMessage'>{$newRecordErrors['img']}</p>";
@@ -303,7 +303,7 @@ if (isset($_GET['selectGenre'])) {
         </form>
         <form method="GET" id='textFilterForm'>
             <div class="searchbar">
-                <input type="text" class="filterText" name='textFilter' id='textFilter' placeholder="Search..." />
+                <input type="text" class="filterText form-input" name='textFilter' id='textFilter' placeholder="Search..." />
                 <input type="submit" class="filterTextSubmit" name='filterTextSubmit' id='textFilterSubmit' value="Find" />
             </div>
         </form>
