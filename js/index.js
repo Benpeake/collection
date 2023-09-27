@@ -5,12 +5,3 @@ const selectGenre = document.getElementById('selectGenre');
 selectGenre.addEventListener('change', () => {
     document.getElementById('filterForm').submit();
 });
-
-//select search bar
-// const searchByText = document.getElementById('textFilter')
-
-//submit on every change
-// searchByText.addEventListener('change', () => {
-//     document.getElementById('textFilterForm').submit();
-
-// })
