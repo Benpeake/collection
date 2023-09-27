@@ -312,9 +312,11 @@ if (isset($_GET['selectGenre'])) {
     <!-- record display -->
     <div class='flexConatiner'>
         <?php
-        if ($allRecords == false) {
+        if ($allRecords == false && isset($_GET['selectGenre'])) {
             $selectedGenre = $genresModel->getGenreByID($genreFilterID);
             echo "<p class='mediumCopy'>No $selectedGenre->name records in collection</p>";
+        } else if ($allRecords == false && isset($_GET['filterTextSubmit'])) {
+            echo "<p class='mediumCopy'>No records in collection match your search</p>";
         } else {
             echo displayAllRecords($allRecords);
         }
