@@ -13,49 +13,62 @@ class RecordsModel
         $this->db = $db;
     }
 
-    //Get all required records based on conditional requirments 
-    public function getAllRecords(int $deleteID, int|null $genreID = null): array|false
+    public function getAllRecords(int $deleteID, int|null $genreID = null, string|null $searchString = null): array|false
     {
         if ($genreID == null || $genreID == 0) {
             $query = $this->db->prepare(
                 "SELECT
-            `records`.`id`,
-            `records`.`album_name`,
-            `records`.`artist_name`,
-            `records`.`release_year`,
-            `records`.`score`,
-            `records`.`img`,
-            `records`.`deleted`,
-            `records`.`genre_id`,
-            `genre`.`name` AS `genre_name`
-            FROM `records`
-            INNER JOIN `genre`
-            ON `records`.`genre_id` = `genre`.`id`
-            WHERE `records`.`deleted` = :deleteID
-        "
+                    `records`.`id`,
+                    `records`.`album_name`,
+                    `records`.`artist_name`,
+                    `records`.`release_year`,
+                    `records`.`score`,
+                    `records`.`img`,
+                    `records`.`deleted`,
+                    `records`.`genre_id`,
+                    `genre`.`name` AS `genre_name`
+                FROM `records`
+                INNER JOIN `genre`
+                ON `records`.`genre_id` = `genre`.`id`
+                WHERE `records`.`deleted` = :deleteID
+                AND (
+                    `artist_name` LIKE :searchString 
+                    OR `album_name` LIKE :searchString
+                    OR `release_year` LIKE :searchString
+                )
+            "
             );
             $query->bindParam('deleteID', $deleteID);
+            $search = "%$searchString%";
+            $query->bindParam('searchString', $search);
         } else {
             $query = $this->db->prepare(
                 "SELECT
-            `records`.`id`,
-            `records`.`album_name`,
-            `records`.`artist_name`,
-            `records`.`release_year`,
-            `records`.`score`,
-            `records`.`img`,
-            `records`.`deleted`,
-            `records`.`genre_id`,
-            `genre`.`name` AS `genre_name`
-            FROM `records`
-            INNER JOIN `genre`
-            ON `records`.`genre_id` = `genre`.`id`
-            WHERE `records`.`deleted` = :deleteID
-            AND `records`.`genre_id` = :genreID
-        "
+                    `records`.`id`,
+                    `records`.`album_name`,
+                    `records`.`artist_name`,
+                    `records`.`release_year`,
+                    `records`.`score`,
+                    `records`.`img`,
+                    `records`.`deleted`,
+                    `records`.`genre_id`,
+                    `genre`.`name` AS `genre_name`
+                FROM `records`
+                INNER JOIN `genre`
+                ON `records`.`genre_id` = `genre`.`id`
+                WHERE `records`.`deleted` = :deleteID
+                AND `records`.`genre_id` = :genreID
+                AND (
+                    `artist_name` LIKE :searchString 
+                    OR `album_name` LIKE :searchString
+                    OR `release_year` LIKE :searchString
+                )
+            "
             );
             $query->bindParam('genreID', $genreID);
             $query->bindParam('deleteID', $deleteID);
+            $search = "%$searchString%";
+            $query->bindParam('searchString', $search);
         }
 
         if ($deleteID != 1 && $deleteID != 0) {
@@ -140,7 +153,7 @@ class RecordsModel
         $query->bindParam('idNum', $id);
 
         $query->execute();
-        
+
         return true;
     }
 
