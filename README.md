@@ -1,4 +1,6 @@
-# website-template
-This template can be used as the basis of new websites.
+# Record Collection App
 
-You can download the zip file, unzip/decompress it, copy the whole folder and rename it.
+- 👀 live view here
+- 👉 record collection app that allows a user to maintain and show off their record collection.
+- 💥 created with OOP principles in PHP with a MySQL database
+- 💥 no framework to gain a deeper understanding of CRUD operations 
